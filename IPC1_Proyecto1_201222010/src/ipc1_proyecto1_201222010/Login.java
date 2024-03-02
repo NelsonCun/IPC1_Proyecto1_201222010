@@ -24,17 +24,17 @@ public class Login extends JFrame implements ActionListener, FocusListener {
     }
 
     private void iniciarComponentes() {
-        JLabel titleLabel = new JLabel("Bienvenido");
+        JLabel titleLabel = new JLabel("HOSPITAL \"BIENESTAR INTEGRAL\"");
         titleLabel.setFont(new Font("Arial", Font.BOLD, 20));
-        titleLabel.setBounds(200, 2, 150, 30);
+        titleLabel.setBounds(75, 2, 350, 30);
         this.add(titleLabel);
 
         //Icono de inicio
-        ImageIcon ImageIcon = new ImageIcon(getClass().getResource("./Images/Login.png"));
+        ImageIcon ImageIcon = new ImageIcon(getClass().getResource("./Images/Logo.png"));
         Image imageDimension = ImageIcon.getImage().getScaledInstance(110, 100, Image.SCALE_SMOOTH);
         ImageIcon adjustedImageIcon = new ImageIcon(imageDimension);
         JLabel imageLabel = new JLabel(adjustedImageIcon);
-        imageLabel.setBounds(190, 30, 110, 100);
+        imageLabel.setBounds(180, 15, 140, 140);
         this.add(imageLabel);
 
         //Etiqueta: Nombre de usuario
@@ -52,44 +52,50 @@ public class Login extends JFrame implements ActionListener, FocusListener {
         //Etiqueta contraseña
         JLabel passwordLabel = new JLabel("Contraseña");
         passwordLabel.setFont(new Font("Arial", Font.BOLD, 12));
-        passwordLabel.setBounds(43, 180, 88, 25);
+        passwordLabel.setBounds(43, 175, 88, 25);
         this.add(passwordLabel);
 
         //Campo para la contraseña
         passwordField = new JPasswordField("Contraseña");
         passwordField.setEchoChar((char) 0);
-        passwordField.setBounds(130, 180, 260, 25);
+        passwordField.setBounds(130, 175, 260, 25);
         passwordField.addFocusListener(this);
         this.add(passwordField);
 
-        //Botón de inicio
+        //Botón de iniciar sesión
         loginButton = new JButton("Iniciar Sesión");
-        loginButton.setBounds(275, 260, 150, 25);
-        loginButton.setForeground(new Color(165, 105, 7));
+        loginButton.setBounds(175, 235, 150, 35);
+        loginButton.setForeground(Color.WHITE);
         loginButton.setBackground(new Color(243, 190, 102));
         loginButton.addActionListener(this);
         this.add(loginButton);
 
+        //Etiqueta: ¿No tienes una cuenta?
+        JLabel cuentaLabel = new JLabel("¿No tienes una cuenta?");
+        cuentaLabel.setFont(new Font("Arial", Font.TYPE1_FONT, 11));
+        cuentaLabel.setBounds(187, 290, 150, 12);
+        this.add(cuentaLabel);
+        
         //Botón de registro
-        registerButton = new JButton("Registrarse");
-        registerButton.setBounds(75, 260, 150, 25);
-        registerButton.setForeground(new Color(108, 123, 207));
+        registerButton = new JButton("Crear cuenta nueva");
+        registerButton.setBounds(170, 310, 160, 40);
+        registerButton.setForeground(Color.WHITE);
         registerButton.setBackground(new Color(126, 200, 242));
         registerButton.addActionListener(this);
         this.add(registerButton);
 
         //Ver contraseña
         cb1 = new JCheckBox("Ver contraseña");
-        cb1.setFont(new Font("Arial", Font.BOLD, 12));
-        cb1.setBounds(130, 220, 150, 25);
+        cb1.setFont(new Font("Arial", Font.BOLD, 10));
+        cb1.setBounds(130, 205, 150, 25);
         cb1.setVisible(true);
         cb1.addActionListener(this);
         this.add(cb1);
         
         //Ventana iniciar sesión
-        this.setTitle("Iniciar Sesión");
+        this.setTitle("Inicio de sesión");
         this.setLocationRelativeTo(null);
-        this.setSize(500,350);
+        this.setSize(500,400);
         setLocationRelativeTo(null);
         
         this.setLayout(null);
@@ -100,12 +106,45 @@ public class Login extends JFrame implements ActionListener, FocusListener {
     }
 
     @Override
-    public void actionPerformed(ActionEvent e) {
-
+    public void actionPerformed(ActionEvent ae) {
+        if (ae.getSource()==cb1) {
+            if (cb1.isSelected()) {
+                passwordField.setEchoChar((char)0);
+            } else {
+                passwordField.setEchoChar('\u25CF');
+            }
+        } else if (ae.getSource()==loginButton) {
+            String username = usernameField.getText();
+            char[] password = passwordField.getPassword();
+            String pwd = new String(password);
+            
+            System.out.println("Usuario "+username);
+            System.out.println("Password " +pwd);
+            if (username.equals("admin")&& pwd.equals("admin")) {
+                ModAdmin modAdmin = new ModAdmin();
+                System.out.println("Bienvenido");
+                this.dispose();
+            } else {
+                JOptionPane.showMessageDialog(this, "El usuario o la contraseña son incorrectos", "ERROR", 0);
+            }
+        } else if (ae.getSource()==registerButton) {
+            System.out.println("Abrir ventana para el registro");
+        }
+        System.out.println("*******************************************************");
     }
 
     @Override
-    public void focusGained(FocusEvent e) {
+    public void focusGained(FocusEvent fe) {
+        if (fe.getSource() == usernameField) {
+            usernameField.setText("");
+        } else if (fe.getSource()==passwordField) {
+            if (cb1.isSelected()) {
+                passwordField.setEchoChar((char)0);
+            } else  {
+                passwordField.setEchoChar('\u25CF');
+            }
+            passwordField.setText("");
+        }
 
     }
 
