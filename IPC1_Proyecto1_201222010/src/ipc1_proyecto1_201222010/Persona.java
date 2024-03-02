@@ -7,14 +7,14 @@ package ipc1_proyecto1_201222010;
 
 public class Persona {
 
-    private long codigo;
+    private String codigo;
     private String nombres;
     private String apellidos;
-    private int edad;
+    private String edad;
     private String sexo;
     private String contraseña;
 
-    public Persona(long codigo, String nombres, String apellidos, int edad, String sexo, String contraseña) {
+    public Persona(String codigo, String nombres, String apellidos, String edad, String sexo, String contraseña) {
         this.codigo = codigo;
         this.nombres = nombres;
         this.apellidos = apellidos;
@@ -26,7 +26,7 @@ public class Persona {
     /**
      * @return the codigo
      */
-    public long getCodigo() {
+    public String getCodigo() {
         return codigo;
     }
 
@@ -34,7 +34,8 @@ public class Persona {
      * @param codigo the codigo to set
      */
     public void setCodigo(long codigo) {
-        this.codigo = codigo;
+        String stringCodigo = codigo+"";
+        this.codigo = stringCodigo;
     }
 
     /**
@@ -68,7 +69,7 @@ public class Persona {
     /**
      * @return the edad
      */
-    public int getEdad() {
+    public String getEdad() {
         return edad;
     }
 

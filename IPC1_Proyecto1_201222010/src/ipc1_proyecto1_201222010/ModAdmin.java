@@ -102,7 +102,7 @@ public class ModAdmin extends JFrame implements ActionListener, ChangeListener {
         jp1.add(lbl1);
 
         //Tabla Doctores
-        /*String[] titulos_d={"Código","Nombre completo","Especialidad","Contraseña","Teléfono","Edad"};
+        String[] titulos_d={"Codigo","Nombres","Apellidos","Epecialidad","Telefono","Edad","Contraseña","Genero"};
         tablaDoctores = new JTable(Proyect1.convertirDatosDoctores(),titulos_d);
         DefaultTableCellRenderer Alinear = new DefaultTableCellRenderer();
         Alinear.setHorizontalAlignment(SwingConstants.CENTER);
@@ -114,7 +114,7 @@ public class ModAdmin extends JFrame implements ActionListener, ChangeListener {
         sp1 = new JScrollPane(tablaDoctores);
         sp1.setBounds(25, 80, 750, 570);
         sp1.setVisible(true);
-        jp1.add(sp1);*/
+        jp1.add(sp1);
         //Gráfica Doctores
         
         //Botón Crear Paciente

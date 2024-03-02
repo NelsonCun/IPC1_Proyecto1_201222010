@@ -19,7 +19,7 @@ import javax.swing.plaf.ColorUIResource;
 public class Proyect1 {
 
     static ArrayList<String[]> doctores = new ArrayList<>();
-    static String[][] listado_doctores = {{"nombres","apellidos","especialidad","contraseña","género","teléfono","edad"}};
+    //static String[][] listado_doctores = {{"nombres","apellidos","especialidad","contraseña","género","teléfono","edad"}};
     static int codigoDoctores = 20241000;
     static int codigoPacientes= 20242000;
     static int codigoProductos= 20243000;
@@ -31,16 +31,32 @@ public class Proyect1 {
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException ex) {
             Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
         }
-        for (String[] newDoctor : listado_doctores) {
-            doctores.add(newDoctor);
-        }
+        //for (String[] newDoctor : Doctor) {
+          //  doctores.add(newDoctor);
+        //}
         Login login = new Login();
         
     }
-
-    static Object[][] convertirDatosDoctores() {
-        
+    
+    //Para mostrar tabla doctores
+    public static Object[][] convertirDatosDoctores() {
+        int filas = doctores.size();
+        Object[][] arregloDoctores = new Object[filas][8];
+        for (int i = 0; i < filas; i++) {
+            arregloDoctores[i][0] = doctores.get(i)[0];
+            arregloDoctores[i][1] = doctores.get(i)[1];
+            arregloDoctores[i][2] = doctores.get(i)[2];
+            arregloDoctores[i][3] = doctores.get(i)[3];
+            arregloDoctores[i][4] = doctores.get(i)[4];
+            arregloDoctores[i][5] = doctores.get(i)[5];
+            arregloDoctores[i][6] = doctores.get(i)[6];
+            arregloDoctores[i][7] = doctores.get(i)[7];
+        }
+        return arregloDoctores;
     }
     
+    public static void addDoctor(String[] datosDoctores) {
+        doctores.add(datosDoctores);
+    }
 
 }

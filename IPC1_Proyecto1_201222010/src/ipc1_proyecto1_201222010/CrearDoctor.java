@@ -32,40 +32,40 @@ public class CrearDoctor extends JFrame implements ActionListener {
         titleLabel.setBounds(50, 20, 200, 30);
         this.add(titleLabel);
         
-        JLabel nombres = new JLabel("Nombres");
-        nombres.setFont(new Font("Arial", Font.BOLD, 15));
-        nombres.setBounds(50, 70, 100, 30);
-        this.add(nombres);
+        JLabel nombresLabel = new JLabel("Nombres");
+        nombresLabel.setFont(new Font("Arial", Font.BOLD, 15));
+        nombresLabel.setBounds(50, 70, 100, 30);
+        this.add(nombresLabel);
         
-        JLabel apellidos = new JLabel("Apellidos");
-        apellidos.setFont(new Font("Arial", Font.BOLD, 15));
-        apellidos.setBounds(50, 110, 100, 30);
-        this.add(apellidos);
+        JLabel apellidosLabel = new JLabel("Apellidos");
+        apellidosLabel.setFont(new Font("Arial", Font.BOLD, 15));
+        apellidosLabel.setBounds(50, 110, 100, 30);
+        this.add(apellidosLabel);
         
-        JLabel contraseña = new JLabel("Contraseña");
-        contraseña.setFont(new Font("Arial", Font.BOLD, 15));
-        contraseña.setBounds(50, 150, 100, 30);
-        this.add(contraseña);
+        JLabel contraseñaLabel = new JLabel("Contraseña");
+        contraseñaLabel.setFont(new Font("Arial", Font.BOLD, 15));
+        contraseñaLabel.setBounds(50, 150, 100, 30);
+        this.add(contraseñaLabel);
         
-        JLabel genero = new JLabel("Género");
-        genero.setFont(new Font("Arial", Font.BOLD, 15));
-        genero.setBounds(50, 190, 100, 30);
-        this.add(genero);
+        JLabel generoLabel = new JLabel("Género");
+        generoLabel.setFont(new Font("Arial", Font.BOLD, 15));
+        generoLabel.setBounds(50, 190, 100, 30);
+        this.add(generoLabel);
         
-        JLabel especialidad = new JLabel("Especialidad");
-        especialidad.setFont(new Font("Arial", Font.BOLD, 15));
-        especialidad.setBounds(400, 70, 100, 30);
-        this.add(especialidad);
+        JLabel especialidadLabel = new JLabel("Especialidad");
+        especialidadLabel.setFont(new Font("Arial", Font.BOLD, 15));
+        especialidadLabel.setBounds(400, 70, 100, 30);
+        this.add(especialidadLabel);
         
-        JLabel telefono = new JLabel("Teléfono");
-        telefono.setFont(new Font("Arial", Font.BOLD, 15));
-        telefono.setBounds(400, 110, 100, 30);
-        this.add(telefono);
+        JLabel telefonoLabel = new JLabel("Teléfono");
+        telefonoLabel.setFont(new Font("Arial", Font.BOLD, 15));
+        telefonoLabel.setBounds(400, 110, 100, 30);
+        this.add(telefonoLabel);
         
-        JLabel edad = new JLabel("Edad");
-        edad.setFont(new Font("Arial", Font.BOLD, 15));
-        edad.setBounds(400, 150, 100, 30);
-        this.add(edad);
+        JLabel edadLabel = new JLabel("Edad");
+        edadLabel.setFont(new Font("Arial", Font.BOLD, 15));
+        edadLabel.setBounds(400, 150, 100, 30);
+        this.add(edadLabel);
         
         campoNombre = new JTextField();
         campoNombre.setBounds(150, 70, 200, 30);
@@ -123,7 +123,21 @@ public class CrearDoctor extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent ae) {
         if (ae.getSource() == buttonRegistrar) {
+            String nombres = campoNombre.getText();
+            String apellidos = campoApellido.getText();
+            String especialidad = campoEspecialidad.getText();
+            String telefono = campoTelefono.getText();
+            String edad = campoEdad.getText();
+            char[] passwordVector = campoPassword.getPassword();
+            String password = new String(passwordVector);
+            String genero = (String) comboBoxGenero.getSelectedItem();
             
+            String codigoDoctor = Integer.toString(Proyect1.codigoDoctores);
+            String[] datosDoctores = {codigoDoctor,nombres,apellidos,especialidad,telefono,edad,password,genero};
+            Proyect1.addDoctor(datosDoctores);
+            Proyect1.codigoDoctores += 1;
+            ModAdmin modAdmin = new ModAdmin();
+            this.dispose();
         } else if (ae.getSource()== buttonCancelar) {
             this.dispose();
         }
