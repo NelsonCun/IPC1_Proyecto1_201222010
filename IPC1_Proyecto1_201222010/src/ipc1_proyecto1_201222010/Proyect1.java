@@ -18,8 +18,9 @@ import javax.swing.plaf.ColorUIResource;
  */
 public class Proyect1 {
 
-    static ArrayList<String[]> doctores = new ArrayList<>();
-    //static String[][] listado_doctores = {{"nombres","apellidos","especialidad","contraseña","género","teléfono","edad"}};
+    static ArrayList<Doctor> doctores = new ArrayList<>();
+    //static ArrayList<String[]> pacientes = new ArrayList<>();
+    //static ArrayList<String[]> productos = new ArrayList<>();
     static int codigoDoctores = 20241000;
     static int codigoPacientes= 20242000;
     static int codigoProductos= 20243000;
@@ -31,11 +32,14 @@ public class Proyect1 {
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException ex) {
             Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
         }
-        //for (String[] newDoctor : Doctor) {
-          //  doctores.add(newDoctor);
-        //}
         Login login = new Login();
         
+    }
+    
+    
+    //Añadir doctores al ArrayList
+    public static void addDoctor(Doctor datosDoctores) {
+        doctores.add(datosDoctores);
     }
     
     //Para mostrar tabla doctores
@@ -43,20 +47,29 @@ public class Proyect1 {
         int filas = doctores.size();
         Object[][] arregloDoctores = new Object[filas][8];
         for (int i = 0; i < filas; i++) {
-            arregloDoctores[i][0] = doctores.get(i)[0];
-            arregloDoctores[i][1] = doctores.get(i)[1];
-            arregloDoctores[i][2] = doctores.get(i)[2];
-            arregloDoctores[i][3] = doctores.get(i)[3];
-            arregloDoctores[i][4] = doctores.get(i)[4];
-            arregloDoctores[i][5] = doctores.get(i)[5];
-            arregloDoctores[i][6] = doctores.get(i)[6];
-            arregloDoctores[i][7] = doctores.get(i)[7];
+            arregloDoctores[i][0] = doctores.get(i).getCodigo();
+            arregloDoctores[i][1] = doctores.get(i).getNombres();
+            arregloDoctores[i][2] = doctores.get(i).getApellidos();
+            arregloDoctores[i][3] = doctores.get(i).getEspecialidad();
+            arregloDoctores[i][4] = doctores.get(i).getTelefono();
+            arregloDoctores[i][5] = doctores.get(i).getEdad();
+            arregloDoctores[i][6] = doctores.get(i).getSexo();
         }
         return arregloDoctores;
     }
     
-    public static void addDoctor(String[] datosDoctores) {
-        doctores.add(datosDoctores);
+    public static int codigoActual = 0;
+    
+    public static boolean validarCodigoDoctor(String codigo){
+        for (int i = 0; i < doctores.size(); i++) {
+            String codigoTem = doctores.get(i).getCodigo();
+            if (codigoTem.equals(codigo)) {
+                codigoActual = i;
+                return true;
+            }
+        }
+        return false;
     }
+    
 
 }

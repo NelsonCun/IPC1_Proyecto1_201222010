@@ -1,5 +1,6 @@
 package ipc1_proyecto1_201222010;
 
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -12,114 +13,130 @@ import java.awt.event.KeyListener;
  *
  * @author nelson
  */
-public class CrearDoctor extends JFrame implements ActionListener, KeyListener {
 
+public class ActualizarDoctor extends JFrame implements ActionListener, KeyListener{
+    
     private JTextField campoNombre;
     private JTextField campoApellido;
     private JTextField campoEspecialidad;
     private JTextField campoTelefono;
     private JTextField campoEdad;
     private JPasswordField campoPassword;
-    private JComboBox<String> comboBoxGenero;
-    private JButton buttonRegistrar;
+    private JButton buttonActualizar;
     private JButton buttonCancelar;
 
-    public CrearDoctor() {
+    public ActualizarDoctor() {
         iniciarComponentes();
     }
 
     private void iniciarComponentes() {
         //Título ventana
-        JLabel titleLabel = new JLabel("Registro Doctor");
+        JLabel titleLabel = new JLabel("Actualizar Doctor");
         titleLabel.setFont(new Font("Arial", Font.BOLD, 25));
-        titleLabel.setBounds(50, 20, 200, 30);
+        titleLabel.setBounds(50, 20, 250, 30);
         this.add(titleLabel);
 
+        JLabel codigoLabel = new JLabel("Código");
+        codigoLabel.setFont(new Font("Arial", Font.BOLD, 15));
+        codigoLabel.setBounds(50, 70, 100, 30);
+        this.add(codigoLabel);
+        
+        JLabel code = new JLabel(Proyect1.doctores.get(Proyect1.codigoActual).getCodigo());
+        code.setBounds(150, 70, 100, 30);
+        code.setVerticalAlignment(SwingConstants.CENTER);
+        code.setHorizontalAlignment(SwingConstants.CENTER);
+        code.setFont(new Font("Arial", Font.BOLD, 15));
+        code.setVisible(true);
+        this.add(code);
+        
         JLabel nombresLabel = new JLabel("Nombres");
         nombresLabel.setFont(new Font("Arial", Font.BOLD, 15));
-        nombresLabel.setBounds(50, 70, 100, 30);
+        nombresLabel.setBounds(50, 110, 100, 30);
         this.add(nombresLabel);
 
         JLabel apellidosLabel = new JLabel("Apellidos");
         apellidosLabel.setFont(new Font("Arial", Font.BOLD, 15));
-        apellidosLabel.setBounds(50, 110, 100, 30);
+        apellidosLabel.setBounds(50, 150, 100, 30);
         this.add(apellidosLabel);
 
         JLabel contraseñaLabel = new JLabel("Contraseña");
         contraseñaLabel.setFont(new Font("Arial", Font.BOLD, 15));
-        contraseñaLabel.setBounds(50, 150, 100, 30);
+        contraseñaLabel.setBounds(50, 190, 100, 30);
         this.add(contraseñaLabel);
 
         JLabel generoLabel = new JLabel("Género");
         generoLabel.setFont(new Font("Arial", Font.BOLD, 15));
-        generoLabel.setBounds(50, 190, 100, 30);
+        generoLabel.setBounds(50, 230, 100, 30);
         this.add(generoLabel);
+        
+        JLabel gender = new JLabel(Proyect1.doctores.get(Proyect1.codigoActual).getSexo());
+        gender.setBounds(150, 230, 100, 30);
+        gender.setVerticalAlignment(SwingConstants.CENTER);
+        gender.setHorizontalAlignment(SwingConstants.CENTER);
+        gender.setFont(new Font("Arial", Font.BOLD, 15));
+        gender.setVisible(true);
+        this.add(gender);
 
         JLabel especialidadLabel = new JLabel("Especialidad");
         especialidadLabel.setFont(new Font("Arial", Font.BOLD, 15));
-        especialidadLabel.setBounds(400, 70, 100, 30);
+        especialidadLabel.setBounds(400, 110, 100, 30);
         this.add(especialidadLabel);
 
         JLabel telefonoLabel = new JLabel("Teléfono");
         telefonoLabel.setFont(new Font("Arial", Font.BOLD, 15));
-        telefonoLabel.setBounds(400, 110, 100, 30);
+        telefonoLabel.setBounds(400, 150, 100, 30);
         this.add(telefonoLabel);
 
         JLabel edadLabel = new JLabel("Edad");
         edadLabel.setFont(new Font("Arial", Font.BOLD, 15));
-        edadLabel.setBounds(400, 150, 100, 30);
+        edadLabel.setBounds(400, 190, 100, 30);
         this.add(edadLabel);
 
-        campoNombre = new JTextField();
+        campoNombre = new JTextField(Proyect1.doctores.get(Proyect1.codigoActual).getNombres());
         campoNombre.addKeyListener(this);
-        campoNombre.setBounds(150, 70, 200, 30);
+        campoNombre.setBounds(150, 110, 200, 30);
         this.add(campoNombre);
 
-        campoApellido = new JTextField();
+        campoApellido = new JTextField(Proyect1.doctores.get(Proyect1.codigoActual).getApellidos());
         campoApellido.addKeyListener(this);
-        campoApellido.setBounds(150, 110, 200, 30);
+        campoApellido.setBounds(150, 150, 200, 30);
         this.add(campoApellido);
 
-        campoPassword = new JPasswordField();
-        campoPassword.setBounds(150, 150, 200, 30);
+        campoPassword = new JPasswordField(Proyect1.doctores.get(Proyect1.codigoActual).getContraseña());
+        campoPassword.setBounds(150, 190, 200, 30);
         this.add(campoPassword);
 
-        String[] vectorGenero = {"Masculino", "Femenino"};
-        comboBoxGenero = new JComboBox<>(vectorGenero);
-        comboBoxGenero.setBounds(150, 190, 120, 30);
-        this.add(comboBoxGenero);
-
-        campoEspecialidad = new JTextField();
+        campoEspecialidad = new JTextField(Proyect1.doctores.get(Proyect1.codigoActual).getEspecialidad());
         campoEspecialidad.addKeyListener(this);
-        campoEspecialidad.setBounds(500, 70, 200, 30);
+        campoEspecialidad.setBounds(500, 110, 200, 30);
         this.add(campoEspecialidad);
 
-        campoTelefono = new JTextField();
+        campoTelefono = new JTextField(Proyect1.doctores.get(Proyect1.codigoActual).getTelefono());
         campoTelefono.addKeyListener(this);
-        campoTelefono.setBounds(500, 110, 200, 30);
+        campoTelefono.setBounds(500, 150, 200, 30);
         this.add(campoTelefono);
 
-        campoEdad = new JTextField();
+        campoEdad = new JTextField(Proyect1.doctores.get(Proyect1.codigoActual).getEdad());
         campoEdad.addKeyListener(this);
-        campoEdad.setBounds(500, 150, 200, 30);
+        campoEdad.setBounds(500, 190, 200, 30);
         this.add(campoEdad);
 
-        buttonRegistrar = new JButton("Registrar");
-        buttonRegistrar.setBounds(262, 250, 100, 40);
-        buttonRegistrar.setForeground(Color.WHITE);
-        buttonRegistrar.setBackground(new Color(136, 191, 243));
-        buttonRegistrar.addActionListener(this);
-        this.add(buttonRegistrar);
+        buttonActualizar = new JButton("Actualizar");
+        buttonActualizar.setBounds(262, 290, 100, 40);
+        buttonActualizar.setForeground(Color.WHITE);
+        buttonActualizar.setBackground(new Color(136, 191, 243));
+        buttonActualizar.addActionListener(this);
+        this.add(buttonActualizar);
 
         buttonCancelar = new JButton("Cancelar");
-        buttonCancelar.setBounds(387, 250, 100, 40);
+        buttonCancelar.setBounds(387, 290, 100, 40);
         buttonCancelar.setForeground(Color.WHITE);
         buttonCancelar.setBackground(new Color(148, 37, 37));
         buttonCancelar.addActionListener(this);
         this.add(buttonCancelar);
 
-        this.setTitle("Nuevo Registro");
-        this.setBounds(350, 400, 750, 350);
+        this.setTitle("Actualizar");
+        this.setBounds(350, 400, 750, 390);
         this.setLayout(null);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setResizable(false);
@@ -130,7 +147,7 @@ public class CrearDoctor extends JFrame implements ActionListener, KeyListener {
 
     @Override
     public void actionPerformed(ActionEvent ae) {
-        if (ae.getSource() == buttonRegistrar) {
+        if (ae.getSource() == buttonActualizar) {
             String nombres = campoNombre.getText();
             String apellidos = campoApellido.getText();
             String especialidad = campoEspecialidad.getText();
@@ -138,12 +155,12 @@ public class CrearDoctor extends JFrame implements ActionListener, KeyListener {
             String edad = campoEdad.getText();
             char[] passwordVector = campoPassword.getPassword();
             String password = new String(passwordVector);
-            String genero = (String) comboBoxGenero.getSelectedItem();
-            String codigoDoctor = Integer.toString(Proyect1.codigoDoctores);
+            String genero = Proyect1.doctores.get(Proyect1.codigoActual).getSexo();
+            String codigoDoctor = Proyect1.doctores.get(Proyect1.codigoActual).getCodigo();
 
             Doctor newdoctor = new Doctor(codigoDoctor, nombres, apellidos, especialidad, telefono, edad, password, genero);
-            Proyect1.addDoctor(newdoctor);
-            Proyect1.codigoDoctores += 1;
+            Proyect1.doctores.set(Proyect1.codigoActual,newdoctor);
+            
             ModAdmin modAdmin = new ModAdmin();
             this.dispose();
         } else if (ae.getSource() == buttonCancelar) {

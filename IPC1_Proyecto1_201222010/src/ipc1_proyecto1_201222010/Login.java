@@ -122,7 +122,6 @@ public class Login extends JFrame implements ActionListener, FocusListener {
             System.out.println("Password " +pwd);
             if (username.equals("admin")&& pwd.equals("admin")) {
                 ModAdmin modAdmin = new ModAdmin();
-                System.out.println("Bienvenido");
                 this.dispose();
             } else {
                 JOptionPane.showMessageDialog(this, "El usuario o la contraseña son incorrectos", "ERROR", 0);

@@ -8,8 +8,10 @@ public class Doctor extends Persona {
     private String especialidad;
     private String telefono;
 
-    public Doctor(String codigo, String nombres, String apellidos, String edad, String sexo, String contraseña) {
+    public Doctor(String codigo, String nombres, String apellidos, String especialidad, String telefono, String edad, String contraseña, String sexo) {
         super(codigo, nombres, apellidos, edad, sexo, contraseña);
+        this.especialidad=especialidad;
+        this.telefono=telefono;
     }
 
     /**
@@ -40,17 +42,5 @@ public class Doctor extends Persona {
         this.telefono = telefono;
     }
     
-    public String[] datosDoctores(){
-        String[] newDoctor = new String[8];
-        newDoctor[0] = this.getCodigo();
-        newDoctor[1] = this.getNombres();
-        newDoctor[2] = this.getApellidos();
-        newDoctor[3] = this.getEdad();
-        newDoctor[4] = this.getSexo();
-        newDoctor[5] = this.getContraseña();
-        newDoctor[6] = this.getEspecialidad();
-        newDoctor[7] = this.getTelefono();
-        return newDoctor;
-    }
     
 }

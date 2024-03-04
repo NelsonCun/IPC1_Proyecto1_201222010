@@ -102,7 +102,7 @@ public class ModAdmin extends JFrame implements ActionListener, ChangeListener {
         jp1.add(lbl1);
 
         //Tabla Doctores
-        String[] titulos_d={"Codigo","Nombres","Apellidos","Epecialidad","Telefono","Edad","Contraseña","Genero"};
+        String[] titulos_d={"Codigo","Nombres","Apellidos","Epecialidad","Telefono","Edad","Genero"};
         tablaDoctores = new JTable(Proyect1.convertirDatosDoctores(),titulos_d);
         DefaultTableCellRenderer Alinear = new DefaultTableCellRenderer();
         Alinear.setHorizontalAlignment(SwingConstants.CENTER);
@@ -110,9 +110,11 @@ public class ModAdmin extends JFrame implements ActionListener, ChangeListener {
             tablaDoctores.getColumnModel().getColumn(i).setCellRenderer(Alinear);
         }
         tablaDoctores.setEnabled(false);
+        this.tablaDoctores.setOpaque(true);
         resizeColumnWidth(tablaDoctores);
         sp1 = new JScrollPane(tablaDoctores);
         sp1.setBounds(25, 80, 750, 570);
+        this.sp1.setOpaque(true);
         sp1.setVisible(true);
         jp1.add(sp1);
         //Gráfica Doctores
@@ -305,9 +307,9 @@ public class ModAdmin extends JFrame implements ActionListener, ChangeListener {
     public void actionPerformed(ActionEvent ae) {
         if (ae.getSource() == btn1) {
             CrearDoctor crearDoctor = new CrearDoctor();
-            //this.dispose();
+            this.dispose();
         } else if (ae.getSource() == btn2) {
-            ActualizarDoctor actualizarDoctor = new ActualizarDoctor();
+            ValidarDoctorActualizar validarDoctor = new ValidarDoctorActualizar();
             this.dispose();
         } else if (ae.getSource() == btn3) {
             EliminarDoctor eliminarDoctor = new EliminarDoctor();
