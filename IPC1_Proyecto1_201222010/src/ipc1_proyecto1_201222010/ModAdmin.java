@@ -18,6 +18,14 @@ import javax.swing.event.ChangeListener;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumnModel;
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartPanel;
+import org.jfree.chart.JFreeChart;
+import org.jfree.chart.plot.PiePlot3D;
+import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.data.category.DefaultCategoryDataset;
+import org.jfree.data.general.DefaultPieDataset;
+import org.jfree.util.Rotation;
 
 /**
  *
@@ -35,6 +43,9 @@ public class ModAdmin extends JFrame implements ActionListener, ChangeListener {
     boolean vb1 = true;
 
     public ModAdmin() {
+
+        Proyect1.contarEspecialidad(Proyect1.doctores);//Eliminar al terminar
+
         panel = new JTabbedPane(JTabbedPane.TOP);
 
         jp1 = new JPanel(null);
@@ -102,8 +113,8 @@ public class ModAdmin extends JFrame implements ActionListener, ChangeListener {
         jp1.add(lbl1);
 
         //Tabla Doctores
-        String[] titulos_d={"Codigo","Nombres","Apellidos","Epecialidad","Telefono","Edad","Genero"};
-        tablaDoctores = new JTable(Proyect1.convertirDatosDoctores(),titulos_d);
+        String[] titulos_d = {"Codigo", "Nombres", "Apellidos", "Epecialidad", "Telefono", "Edad", "Genero"};
+        tablaDoctores = new JTable(Proyect1.convertirDatosDoctores(), titulos_d);
         DefaultTableCellRenderer Alinear = new DefaultTableCellRenderer();
         Alinear.setHorizontalAlignment(SwingConstants.CENTER);
         for (int i = 0; i < titulos_d.length; i++) {
@@ -117,8 +128,102 @@ public class ModAdmin extends JFrame implements ActionListener, ChangeListener {
         this.sp1.setOpaque(true);
         sp1.setVisible(true);
         jp1.add(sp1);
+
         //Gráfica Doctores
+        Proyect1.contarEspecialidad(Proyect1.doctores);
+        int freqEspecialidad1 = 0;
+        int freqEspecialidad2 = 0;
+        int freqEspecialidad3 = 0;
+        int freqEspecialidad4 = 0;
+        int freqEspecialidad5 = 0;
+        String especialidad1 = "Especialidad 1";
+        String especialidad2 = "Especialidad 2";
+        String especialidad3 = "Especialidad 2";
+        String especialidad4 = "Especialidad 3";
+        String especialidad5 = "Especialidad 4";
+        //String especialidad1 = Proyect1.topEspecialidades[0][0];
+        try {
+            freqEspecialidad1 = Integer.parseInt(Proyect1.topEspecialidades[0][1]);
+            // Haz algo con el número entero
+        } catch (NumberFormatException e) {
+            System.out.println("La cadena no es un número entero válido.");
+        }
+        try {
+            freqEspecialidad2 = Integer.parseInt(Proyect1.topEspecialidades[1][1]);
+            // Haz algo con el número entero
+        } catch (NumberFormatException e) {
+            System.out.println("La cadena no es un número entero válido.");
+        }try {
+            freqEspecialidad3 = Integer.parseInt(Proyect1.topEspecialidades[2][1]);
+            // Haz algo con el número entero
+        } catch (NumberFormatException e) {
+            System.out.println("La cadena no es un número entero válido.");
+        }try {
+            freqEspecialidad4 = Integer.parseInt(Proyect1.topEspecialidades[3][1]);
+            // Haz algo con el número entero
+        } catch (NumberFormatException e) {
+            System.out.println("La cadena no es un número entero válido.");
+        }try {
+            freqEspecialidad5 = Integer.parseInt(Proyect1.topEspecialidades[4][1]);
+            // Haz algo con el número entero
+        } catch (NumberFormatException e) {
+            System.out.println("La cadena no es un número entero válido.");
+        }
+        if (Proyect1.topEspecialidades[0][0]==null) {
+            
+        } else {
+            especialidad1 = Proyect1.topEspecialidades[0][0];
+        }
+        if (Proyect1.topEspecialidades[1][0]==null) {
+            
+        } else {
+            especialidad2 = Proyect1.topEspecialidades[1][0];
+        }
+        if (Proyect1.topEspecialidades[2][0]==null) {
+            
+        } else {
+            especialidad3 = Proyect1.topEspecialidades[2][0];
+        }
+        if (Proyect1.topEspecialidades[3][0]==null) {
+            
+        } else {
+            especialidad4 = Proyect1.topEspecialidades[3][0];
+        }
+        if (Proyect1.topEspecialidades[4][0]==null) {
+            
+        } else {
+            especialidad5 = Proyect1.topEspecialidades[4][0];
+        }
         
+        
+        DefaultCategoryDataset datosTopEspecialidades = new DefaultCategoryDataset();
+        datosTopEspecialidades.setValue(freqEspecialidad1, especialidad1, "Especialidad 1");
+        datosTopEspecialidades.setValue(freqEspecialidad2, especialidad2, "Especialidad 2");
+        datosTopEspecialidades.setValue(freqEspecialidad3, especialidad3, "Especialidad 3");
+        datosTopEspecialidades.setValue(freqEspecialidad4, especialidad4, "Especialidad 4");
+        datosTopEspecialidades.setValue(freqEspecialidad5, especialidad5, "Especialidad 5");
+
+        // Instancear gráfica de barras 3D
+        JFreeChart graficoTopEspecialidades = ChartFactory.createBarChart3D(
+                "Top 5 Especialidades", // Nombre del grafico
+                "Especialidades", // Nombre de las barras o columnas
+                "Cantidad de médicos", // Nombre de la numeracion
+                datosTopEspecialidades, // Datos del grafico
+                PlotOrientation.VERTICAL, // Orientacion
+                true, // Leyenda de barras individuales por color
+                true, // Herramientas
+                false // Url del grafico
+        );
+
+        // Creación de un ChartPanel el cual almacenará nuestro gráfico
+        ChartPanel cPanel = new ChartPanel(graficoTopEspecialidades);
+        // Habilitamos es scroll
+        cPanel.setMouseWheelEnabled(true);
+        // Asignamos la posición y las dimensiones de nuestro ChartPanel
+        cPanel.setBounds(800, 300, 550, 300);
+        // Agregamos a nuestra pestaña el ChartPanel con nuestro gráfico
+        jp1.add(cPanel);
+
         //Botón Crear Paciente
         btn5 = new JButton("Crear paciente");
         btn5.setBounds(850, 75, 257, 50);
@@ -189,8 +294,6 @@ public class ModAdmin extends JFrame implements ActionListener, ChangeListener {
         sp1.setVisible(true);
         jp1.add(sp1);*/
         //Gráfica Pacientes
-        
-        
         //Botón Crear Producto
         btn8 = new JButton("Crear producto");
         btn8.setBounds(850, 75, 257, 50);
@@ -261,8 +364,6 @@ public class ModAdmin extends JFrame implements ActionListener, ChangeListener {
         sp1.setVisible(true);
         jp1.add(sp1);*/
         //Gráfica Productos
-        
-        
         //Fondo Doctores
         lbl2 = new JLabel();
         lbl2.setBounds(0, 0, 1500, 800);
@@ -314,26 +415,25 @@ public class ModAdmin extends JFrame implements ActionListener, ChangeListener {
         } else if (ae.getSource() == btn3) {
             EliminarDoctor eliminarDoctor = new EliminarDoctor();
             this.dispose();
-        } else if (ae.getSource()==btn5) {
+        } else if (ae.getSource() == btn5) {
             CrearPaciente crearPaciente = new CrearPaciente();
             this.dispose();
-        } else if (ae.getSource()==btn6) {
+        } else if (ae.getSource() == btn6) {
             ActualizarPaciente actualizarPaciente = new ActualizarPaciente();
             this.dispose();
-        } else if (ae.getSource()==btn7) {
+        } else if (ae.getSource() == btn7) {
             EliminarPaciente eliminarPaciente = new EliminarPaciente();
             this.dispose();
-        }else if (ae.getSource()==btn8) {
+        } else if (ae.getSource() == btn8) {
             CrearProd crearProd = new CrearProd();
             this.dispose();
-        }else if (ae.getSource()==btn9) {
+        } else if (ae.getSource() == btn9) {
             ActualizarProd actualizarProd = new ActualizarProd();
             this.dispose();
-        }else if (ae.getSource()==btn10) {
+        } else if (ae.getSource() == btn10) {
             EliminarProd eliminarProd = new EliminarProd();
             this.dispose();
-        }
-        else if (ae.getSource() == btn4 || ae.getSource() == btn11 || ae.getSource() == btn12) {
+        } else if (ae.getSource() == btn4 || ae.getSource() == btn11 || ae.getSource() == btn12) {
             Login login = new Login();
             this.dispose();
         }

@@ -22,26 +22,25 @@ public class Proyect1 {
     //static ArrayList<String[]> pacientes = new ArrayList<>();
     //static ArrayList<String[]> productos = new ArrayList<>();
     static int codigoDoctores = 20241000;
-    static int codigoPacientes= 20242000;
-    static int codigoProductos= 20243000;
+    static int codigoPacientes = 20242000;
+    static int codigoProductos = 20243000;
 
     public static void main(String[] args) {
         try {
-//            UIManager.setLookAndFeel("com.jtattoo.plaf.noire.NoireLookAndFeel");
             UIManager.setLookAndFeel("com.jtattoo.plaf.hifi.HiFiLookAndFeel");
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException ex) {
             Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
         }
+
         Login login = new Login();
-        
+
     }
-    
-    
+
     //Añadir doctores al ArrayList
     public static void addDoctor(Doctor datosDoctores) {
         doctores.add(datosDoctores);
     }
-    
+
     //Para mostrar tabla doctores
     public static Object[][] convertirDatosDoctores() {
         int filas = doctores.size();
@@ -57,10 +56,10 @@ public class Proyect1 {
         }
         return arregloDoctores;
     }
-    
+
     public static int codigoActual = 0;
-    
-    public static boolean validarCodigoDoctor(String codigo){
+
+    public static boolean validarCodigoDoctor(String codigo) {
         for (int i = 0; i < doctores.size(); i++) {
             String codigoTem = doctores.get(i).getCodigo();
             if (codigoTem.equals(codigo)) {
@@ -70,6 +69,46 @@ public class Proyect1 {
         }
         return false;
     }
-    
+
+    public static String[][] topEspecialidades = new String[5][2];
+
+    public static void contarEspecialidad(ArrayList<Doctor> doctores) {
+        // Utilizamos un ArrayList para almacenar las especialidades y sus frecuencias
+        ArrayList<String> especialidades = new ArrayList<>();
+        ArrayList<Integer> frecuencia = new ArrayList<>();
+
+        for (Doctor doctor : doctores) {
+            String especialidad = doctor.getEspecialidad(); // Reemplaza con el método adecuado
+            int indiceEncontrado = especialidades.indexOf(especialidad);
+
+            if (indiceEncontrado != -1) {
+                // Ya tenemos esta especialidad, incrementamos la frecuencia
+                frecuencia.set(indiceEncontrado, frecuencia.get(indiceEncontrado) + 1);
+            } else {
+                // Añadimos una nueva especialidad y establecemos su frecuencia en 1
+                especialidades.add(especialidad);
+                frecuencia.add(1);
+            }
+        }
+
+        for (int i = 0; i < Math.min(5, especialidades.size()); i++) {
+            int maxFreqIndex = 0;
+            int maxFreq = frecuencia.get(0);
+
+            for (int j = 1; j < especialidades.size(); j++) {
+                if (frecuencia.get(j) > maxFreq) {
+                    maxFreq = frecuencia.get(j);
+                    maxFreqIndex = j;
+                }
+            }
+
+            topEspecialidades[i][0] = especialidades.get(maxFreqIndex);
+            String maximaFrecuencia = ""+maxFreq;
+            topEspecialidades[i][1] = maximaFrecuencia;
+            System.out.println("especialidad"+especialidades.get(maxFreqIndex)+ "frecuencia" + maxFreq );
+
+        }
+
+    }
 
 }
