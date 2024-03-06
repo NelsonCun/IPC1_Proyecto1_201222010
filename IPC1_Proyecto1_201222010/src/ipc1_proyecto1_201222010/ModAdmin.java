@@ -39,7 +39,6 @@ public class ModAdmin extends JFrame implements ActionListener, ChangeListener {
     JPanel jp1, jp2, jp3;
     JTable tablaDoctores, tablaPacientes, tablaProductos;
     JScrollPane sp1, sp2, sp3;
-
     boolean vb1 = true;
 
     public ModAdmin() {
@@ -90,7 +89,7 @@ public class ModAdmin extends JFrame implements ActionListener, ChangeListener {
         btn3.addActionListener(this);
         jp1.add(btn3);
 
-        //Boton salir1
+        //Boton salir
         btn4 = new JButton("Cerrar sesión");
         btn4.setBounds(1150, 700, 200, 50);
         btn4.setForeground(Color.WHITE);
@@ -99,7 +98,7 @@ public class ModAdmin extends JFrame implements ActionListener, ChangeListener {
         btn4.setVisible(true);
         btn4.setEnabled(true);
         btn4.addActionListener(this);
-        jp1.add(btn4);
+        this.add(btn4);
 
         //Lable listado doctores
         lbl1 = new JLabel("Listado de doctores");
@@ -124,7 +123,7 @@ public class ModAdmin extends JFrame implements ActionListener, ChangeListener {
         this.tablaDoctores.setOpaque(true);
         resizeColumnWidth(tablaDoctores);
         sp1 = new JScrollPane(tablaDoctores);
-        sp1.setBounds(25, 80, 750, 570);
+        sp1.setBounds(25, 80, 750, 470);
         this.sp1.setOpaque(true);
         sp1.setVisible(true);
         jp1.add(sp1);
@@ -138,36 +137,30 @@ public class ModAdmin extends JFrame implements ActionListener, ChangeListener {
         int freqEspecialidad5 = 0;
         String especialidad1 = "Especialidad 1";
         String especialidad2 = "Especialidad 2";
-        String especialidad3 = "Especialidad 2";
-        String especialidad4 = "Especialidad 3";
-        String especialidad5 = "Especialidad 4";
-        //String especialidad1 = Proyect1.topEspecialidades[0][0];
+        String especialidad3 = "Especialidad 3";
+        String especialidad4 = "Especialidad 4";
+        String especialidad5 = "Especialidad 5";
         try {
             freqEspecialidad1 = Integer.parseInt(Proyect1.topEspecialidades[0][1]);
-            // Haz algo con el número entero
         } catch (NumberFormatException e) {
-            System.out.println("La cadena no es un número entero válido.");
+            
         }
         try {
             freqEspecialidad2 = Integer.parseInt(Proyect1.topEspecialidades[1][1]);
-            // Haz algo con el número entero
         } catch (NumberFormatException e) {
-            System.out.println("La cadena no es un número entero válido.");
+            
         }try {
             freqEspecialidad3 = Integer.parseInt(Proyect1.topEspecialidades[2][1]);
-            // Haz algo con el número entero
         } catch (NumberFormatException e) {
-            System.out.println("La cadena no es un número entero válido.");
+            
         }try {
             freqEspecialidad4 = Integer.parseInt(Proyect1.topEspecialidades[3][1]);
-            // Haz algo con el número entero
         } catch (NumberFormatException e) {
-            System.out.println("La cadena no es un número entero válido.");
+            
         }try {
             freqEspecialidad5 = Integer.parseInt(Proyect1.topEspecialidades[4][1]);
-            // Haz algo con el número entero
         } catch (NumberFormatException e) {
-            System.out.println("La cadena no es un número entero válido.");
+            
         }
         if (Proyect1.topEspecialidades[0][0]==null) {
             
@@ -197,11 +190,11 @@ public class ModAdmin extends JFrame implements ActionListener, ChangeListener {
         
         
         DefaultCategoryDataset datosTopEspecialidades = new DefaultCategoryDataset();
-        datosTopEspecialidades.setValue(freqEspecialidad1, especialidad1, "Especialidad 1");
-        datosTopEspecialidades.setValue(freqEspecialidad2, especialidad2, "Especialidad 2");
-        datosTopEspecialidades.setValue(freqEspecialidad3, especialidad3, "Especialidad 3");
-        datosTopEspecialidades.setValue(freqEspecialidad4, especialidad4, "Especialidad 4");
-        datosTopEspecialidades.setValue(freqEspecialidad5, especialidad5, "Especialidad 5");
+        datosTopEspecialidades.setValue(freqEspecialidad1, especialidad1, especialidad1);
+        datosTopEspecialidades.setValue(freqEspecialidad2, especialidad2, especialidad2);
+        datosTopEspecialidades.setValue(freqEspecialidad3, especialidad3, especialidad3);
+        datosTopEspecialidades.setValue(freqEspecialidad4, especialidad4, especialidad4);
+        datosTopEspecialidades.setValue(freqEspecialidad5, especialidad5, especialidad5);
 
         // Instancear gráfica de barras 3D
         JFreeChart graficoTopEspecialidades = ChartFactory.createBarChart3D(
@@ -257,17 +250,6 @@ public class ModAdmin extends JFrame implements ActionListener, ChangeListener {
         btn7.addActionListener(this);
         jp2.add(btn7);
 
-        //Boton salir2
-        btn11 = new JButton("Cerrar sesión");
-        btn11.setBounds(1150, 700, 200, 50);
-        btn11.setForeground(Color.WHITE);
-        btn11.setBackground(new Color(216, 36, 36));
-        btn11.setFont(new Font("Arial", Font.BOLD, 22));
-        btn11.setVisible(true);
-        btn11.setEnabled(true);
-        btn11.addActionListener(this);
-        jp2.add(btn11);
-
         //Lable listado pacientes
         lbl5 = new JLabel("Listado de pacientes");
         lbl5.setBounds(25, 25, 750, 50);
@@ -280,20 +262,20 @@ public class ModAdmin extends JFrame implements ActionListener, ChangeListener {
         jp2.add(lbl5);
 
         //Tabla Pacientes
-        /*String[] titulos_d={"Código","Nombre completo","Especialidad","Contraseña","Teléfono","Edad"};
-        tablaDoctores = new JTable(Proyect1.convertirDatosDoctores(),titulos_d);
-        DefaultTableCellRenderer Alinear = new DefaultTableCellRenderer();
-        Alinear.setHorizontalAlignment(SwingConstants.CENTER);
-        for (int i = 0; i < titulos_d.length; i++) {
-            tablaDoctores.getColumnModel().getColumn(i).setCellRenderer(Alinear);
+        String[] titulos_pacientes={"Código","Nombres","Apellidos","Edad","Género"};
+        tablaPacientes = new JTable(Proyect1.convertirDatosPacientes(),titulos_pacientes);
+        DefaultTableCellRenderer AlinearPac = new DefaultTableCellRenderer();
+        AlinearPac.setHorizontalAlignment(SwingConstants.CENTER);
+        for (int i = 0; i < titulos_pacientes.length; i++) {
+            tablaPacientes.getColumnModel().getColumn(i).setCellRenderer(AlinearPac);
         }
-        tablaDoctores.setEnabled(false);
-        resizeColumnWidth(tablaDoctores);
-        sp1 = new JScrollPane(tablaDoctores);
-        sp1.setBounds(25, 80, 750, 570);
-        sp1.setVisible(true);
-        jp1.add(sp1);*/
-        //Gráfica Pacientes
+        tablaPacientes.setEnabled(false);
+        resizeColumnWidth(tablaPacientes);
+        sp2 = new JScrollPane(tablaPacientes);
+        sp2.setBounds(25, 80, 750, 470);
+        sp2.setVisible(true);
+        jp2.add(sp2);
+        
         //Botón Crear Producto
         btn8 = new JButton("Crear producto");
         btn8.setBounds(850, 75, 257, 50);
@@ -327,17 +309,6 @@ public class ModAdmin extends JFrame implements ActionListener, ChangeListener {
         btn10.addActionListener(this);
         jp3.add(btn10);
 
-        //Boton salir3
-        btn12 = new JButton("Cerrar sesión");
-        btn12.setBounds(1150, 700, 200, 50);
-        btn12.setForeground(Color.WHITE);
-        btn12.setBackground(new Color(216, 36, 36));
-        btn12.setFont(new Font("Arial", Font.BOLD, 22));
-        btn12.setVisible(true);
-        btn12.setEnabled(true);
-        btn12.addActionListener(this);
-        jp3.add(btn12);
-
         //Lable listado productos
         lbl6 = new JLabel("Listado de productos");
         lbl6.setBounds(25, 25, 750, 50);
@@ -350,20 +321,84 @@ public class ModAdmin extends JFrame implements ActionListener, ChangeListener {
         jp3.add(lbl6);
 
         //Tabla Productos
-        /*String[] titulos_d={"Código","Nombre completo","Especialidad","Contraseña","Teléfono","Edad"};
-        tablaDoctores = new JTable(Proyect1.convertirDatosDoctores(),titulos_d);
-        DefaultTableCellRenderer Alinear = new DefaultTableCellRenderer();
-        Alinear.setHorizontalAlignment(SwingConstants.CENTER);
-        for (int i = 0; i < titulos_d.length; i++) {
-            tablaDoctores.getColumnModel().getColumn(i).setCellRenderer(Alinear);
+        String[] titulos_prod={"Código","Nombre","Precio (Q)","Descripción","Cantidad"};
+        tablaProductos = new JTable(Proyect1.convertirDatosProductos(),titulos_prod);
+        DefaultTableCellRenderer AlinearProd = new DefaultTableCellRenderer();
+        AlinearProd.setHorizontalAlignment(SwingConstants.CENTER);
+        for (int i = 0; i < titulos_prod.length; i++) {
+            tablaProductos.getColumnModel().getColumn(i).setCellRenderer(AlinearProd);
         }
         tablaDoctores.setEnabled(false);
-        resizeColumnWidth(tablaDoctores);
-        sp1 = new JScrollPane(tablaDoctores);
-        sp1.setBounds(25, 80, 750, 570);
-        sp1.setVisible(true);
-        jp1.add(sp1);*/
+        resizeColumnWidth(tablaProductos);
+        sp3 = new JScrollPane(tablaProductos);
+        sp3.setBounds(25, 80, 750, 470);
+        sp3.setVisible(true);
+        jp3.add(sp3);
+        
         //Gráfica Productos
+        Proyect1.contarProductos(Proyect1.productos);
+        int freqProducto1 = 0;
+        int freqProducto2 = 0;
+        int freqProducto3 = 0;
+        String producto1 = "Prod 1";
+        String producto2 = "Prod 2";
+        String producto3 = "Prod 3";
+        try {
+            freqProducto1 = Integer.parseInt(Proyect1.topProductos[0][1]);
+        } catch (NumberFormatException e) {
+            
+        }
+        try {
+            freqProducto2 = Integer.parseInt(Proyect1.topProductos[1][1]);
+        } catch (NumberFormatException e) {
+            
+        }try {
+            freqProducto3 = Integer.parseInt(Proyect1.topProductos[2][1]);
+        } catch (NumberFormatException e) {
+            
+        }
+        if (Proyect1.topProductos[0][0]==null) {
+            
+        } else {
+            producto1 = Proyect1.topProductos[0][0];
+        }
+        if (Proyect1.topProductos[1][0]==null) {
+            
+        } else {
+            producto2 = Proyect1.topProductos[1][0];
+        }
+        if (Proyect1.topProductos[2][0]==null) {
+            
+        } else {
+            producto3 = Proyect1.topProductos[2][0];
+        }
+        
+        DefaultCategoryDataset datosTopProductos = new DefaultCategoryDataset();
+        datosTopProductos.setValue(freqProducto1, producto1, producto1);
+        datosTopProductos.setValue(freqProducto2, producto2, producto2);
+        datosTopProductos.setValue(freqProducto3, producto3, producto3);
+
+        // Instancear gráfica de barras 3D
+        JFreeChart graficoTopProductos = ChartFactory.createBarChart3D(
+                "Top 3 - Productos", // Nombre del grafico
+                "Productos", // Nombre de las barras o columnas
+                "Cantidad", // Nombre de la numeracion
+                datosTopProductos, // Datos del grafico
+                PlotOrientation.VERTICAL, // Orientacion
+                true, // Leyenda de barras individuales por color
+                true, // Herramientas
+                false // Url del grafico
+        );
+
+        // Creación de un ChartPanel el cual almacenará nuestro gráfico
+        ChartPanel prodPanel = new ChartPanel(graficoTopProductos);
+        // Habilitamos es scroll
+        prodPanel.setMouseWheelEnabled(true);
+        // Asignamos la posición y las dimensiones de nuestro ChartPanel
+        prodPanel.setBounds(800, 300, 550, 300);
+        // Agregamos a nuestra pestaña el ChartPanel con nuestro gráfico
+        jp3.add(prodPanel);
+        
         //Fondo Doctores
         lbl2 = new JLabel();
         lbl2.setBounds(0, 0, 1500, 800);
@@ -419,22 +454,23 @@ public class ModAdmin extends JFrame implements ActionListener, ChangeListener {
             CrearPaciente crearPaciente = new CrearPaciente();
             this.dispose();
         } else if (ae.getSource() == btn6) {
-            ActualizarPaciente actualizarPaciente = new ActualizarPaciente();
+            ValidarPacienteActualizar validarPaciente = new ValidarPacienteActualizar();
             this.dispose();
         } else if (ae.getSource() == btn7) {
             EliminarPaciente eliminarPaciente = new EliminarPaciente();
             this.dispose();
         } else if (ae.getSource() == btn8) {
-            CrearProd crearProd = new CrearProd();
+            CrearProducto crearProducto = new CrearProducto();
             this.dispose();
         } else if (ae.getSource() == btn9) {
-            ActualizarProd actualizarProd = new ActualizarProd();
+            ValidarProductoActualizar validarProducto = new ValidarProductoActualizar();
             this.dispose();
         } else if (ae.getSource() == btn10) {
-            EliminarProd eliminarProd = new EliminarProd();
+            EliminarProducto eliminarProd = new EliminarProducto();
             this.dispose();
-        } else if (ae.getSource() == btn4 || ae.getSource() == btn11 || ae.getSource() == btn12) {
+        } else if (ae.getSource() == btn4) {
             Login login = new Login();
+            Proyect1.codigoUsuario = 0;
             this.dispose();
         }
     }

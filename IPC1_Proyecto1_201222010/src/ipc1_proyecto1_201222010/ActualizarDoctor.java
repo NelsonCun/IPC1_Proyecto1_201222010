@@ -31,7 +31,7 @@ public class ActualizarDoctor extends JFrame implements ActionListener, KeyListe
 
     private void iniciarComponentes() {
         //Título ventana
-        JLabel titleLabel = new JLabel("Actualizar Doctor");
+        JLabel titleLabel = new JLabel("Actualizar Doctor\u207A");
         titleLabel.setFont(new Font("Arial", Font.BOLD, 25));
         titleLabel.setBounds(50, 20, 250, 30);
         this.add(titleLabel);
@@ -49,17 +49,17 @@ public class ActualizarDoctor extends JFrame implements ActionListener, KeyListe
         code.setVisible(true);
         this.add(code);
         
-        JLabel nombresLabel = new JLabel("Nombres");
+        JLabel nombresLabel = new JLabel("Nombres\u207A");
         nombresLabel.setFont(new Font("Arial", Font.BOLD, 15));
         nombresLabel.setBounds(50, 110, 100, 30);
         this.add(nombresLabel);
 
-        JLabel apellidosLabel = new JLabel("Apellidos");
+        JLabel apellidosLabel = new JLabel("Apellidos\u207A");
         apellidosLabel.setFont(new Font("Arial", Font.BOLD, 15));
         apellidosLabel.setBounds(50, 150, 100, 30);
         this.add(apellidosLabel);
 
-        JLabel contraseñaLabel = new JLabel("Contraseña");
+        JLabel contraseñaLabel = new JLabel("Contraseña\u207A");
         contraseñaLabel.setFont(new Font("Arial", Font.BOLD, 15));
         contraseñaLabel.setBounds(50, 190, 100, 30);
         this.add(contraseñaLabel);
@@ -77,7 +77,7 @@ public class ActualizarDoctor extends JFrame implements ActionListener, KeyListe
         gender.setVisible(true);
         this.add(gender);
 
-        JLabel especialidadLabel = new JLabel("Especialidad");
+        JLabel especialidadLabel = new JLabel("Especialidad\u207A");
         especialidadLabel.setFont(new Font("Arial", Font.BOLD, 15));
         especialidadLabel.setBounds(400, 110, 100, 30);
         this.add(especialidadLabel);
@@ -87,10 +87,15 @@ public class ActualizarDoctor extends JFrame implements ActionListener, KeyListe
         telefonoLabel.setBounds(400, 150, 100, 30);
         this.add(telefonoLabel);
 
-        JLabel edadLabel = new JLabel("Edad");
+        JLabel edadLabel = new JLabel("Edad\u207A");
         edadLabel.setFont(new Font("Arial", Font.BOLD, 15));
         edadLabel.setBounds(400, 190, 100, 30);
         this.add(edadLabel);
+        
+        JLabel obligatorio = new JLabel("\u207A Campo obligatorio");
+        obligatorio.setFont(new Font("Arial", Font.BOLD, 10));
+        obligatorio.setBounds(400, 230, 100, 30);
+        this.add(obligatorio);
 
         campoNombre = new JTextField(Proyect1.doctores.get(Proyect1.codigoActual).getNombres());
         campoNombre.addKeyListener(this);
@@ -135,7 +140,7 @@ public class ActualizarDoctor extends JFrame implements ActionListener, KeyListe
         buttonCancelar.addActionListener(this);
         this.add(buttonCancelar);
 
-        this.setTitle("Actualizar");
+        this.setTitle("Actualización");
         this.setBounds(350, 400, 750, 390);
         this.setLayout(null);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -157,12 +162,18 @@ public class ActualizarDoctor extends JFrame implements ActionListener, KeyListe
             String password = new String(passwordVector);
             String genero = Proyect1.doctores.get(Proyect1.codigoActual).getSexo();
             String codigoDoctor = Proyect1.doctores.get(Proyect1.codigoActual).getCodigo();
+            if (nombres.isEmpty()||apellidos.isEmpty()||especialidad.isEmpty()||edad.isEmpty()||password.isEmpty()||genero.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Debe llenar todos los campos obligatorios", "ERROR", 0);
+            }else{
 
             Doctor newdoctor = new Doctor(codigoDoctor, nombres, apellidos, especialidad, telefono, edad, password, genero);
             Proyect1.doctores.set(Proyect1.codigoActual,newdoctor);
+            JOptionPane.showMessageDialog(null, "Doctor actualizado exitosamente",
+                "INFORMATION_MESSAGE", JOptionPane.INFORMATION_MESSAGE);
             
             ModAdmin modAdmin = new ModAdmin();
             this.dispose();
+            }
         } else if (ae.getSource() == buttonCancelar) {
             this.dispose();
             ModAdmin modAdmin = new ModAdmin();
@@ -171,7 +182,6 @@ public class ActualizarDoctor extends JFrame implements ActionListener, KeyListe
 
     @Override
     public void keyTyped(KeyEvent ke) {
-        // Obtener el carácter de la tecla presionada y llamar a discriminarCaracter
         char entrada = ke.getKeyChar();
         discriminarCaracter(ke, entrada);
     }

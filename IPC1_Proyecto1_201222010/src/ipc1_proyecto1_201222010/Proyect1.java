@@ -19,11 +19,14 @@ import javax.swing.plaf.ColorUIResource;
 public class Proyect1 {
 
     static ArrayList<Doctor> doctores = new ArrayList<>();
-    //static ArrayList<String[]> pacientes = new ArrayList<>();
-    //static ArrayList<String[]> productos = new ArrayList<>();
-    static int codigoDoctores = 20241000;
-    static int codigoPacientes = 20242000;
-    static int codigoProductos = 20243000;
+    static ArrayList<Paciente> pacientes = new ArrayList<>();
+    static ArrayList<Producto> productos = new ArrayList<>();
+    static ArrayList<Administrador> administradores = new ArrayList<>();
+    static int codigoDoctores = 202410000;
+    static int codigoPacientes = 202420000;
+    static int codigoProductos = 202430000;
+    static int codigoUsuario = 0;
+    static int indiceUsuario = 0;
 
     public static void main(String[] args) {
         try {
@@ -34,6 +37,8 @@ public class Proyect1 {
 
         Login login = new Login();
 
+        Administrador newAdmin = new Administrador("20", "admin", "20");
+        addAdmin(newAdmin);
     }
 
     //Añadir doctores al ArrayList
@@ -41,10 +46,25 @@ public class Proyect1 {
         doctores.add(datosDoctores);
     }
 
+    //Añadir pacientes al Arraylist
+    public static void addPaciente(Paciente datosPacientes) {
+        pacientes.add(datosPacientes);
+    }
+
+    //Añadir productos al Arraylist
+    public static void addProducto(Producto datosProductos) {
+        productos.add(datosProductos);
+    }
+
+    //Añadir administradores al Arraylist
+    public static void addAdmin(Administrador newAdmin) {
+        administradores.add(newAdmin);
+    }
+
     //Para mostrar tabla doctores
     public static Object[][] convertirDatosDoctores() {
         int filas = doctores.size();
-        Object[][] arregloDoctores = new Object[filas][8];
+        Object[][] arregloDoctores = new Object[filas][7];
         for (int i = 0; i < filas; i++) {
             arregloDoctores[i][0] = doctores.get(i).getCodigo();
             arregloDoctores[i][1] = doctores.get(i).getNombres();
@@ -57,6 +77,35 @@ public class Proyect1 {
         return arregloDoctores;
     }
 
+    //Para mostrar tabla pacientes
+    public static Object[][] convertirDatosPacientes() {
+        int filas = pacientes.size();
+        Object[][] arregloPacientes = new Object[filas][5];
+        for (int i = 0; i < filas; i++) {
+            arregloPacientes[i][0] = pacientes.get(i).getCodigo();
+            arregloPacientes[i][1] = pacientes.get(i).getNombres();
+            arregloPacientes[i][2] = pacientes.get(i).getApellidos();
+            arregloPacientes[i][3] = pacientes.get(i).getEdad();
+            arregloPacientes[i][4] = pacientes.get(i).getSexo();
+        }
+        return arregloPacientes;
+    }
+
+    //Para mostrar tabla productos
+    public static Object[][] convertirDatosProductos() {
+        int filas = productos.size();
+        Object[][] arregloProductos = new Object[filas][5];
+        for (int i = 0; i < filas; i++) {
+            arregloProductos[i][0] = productos.get(i).getCodigo();
+            arregloProductos[i][1] = productos.get(i).getNombre();
+            arregloProductos[i][2] = productos.get(i).getPrecio();
+            arregloProductos[i][3] = productos.get(i).getDescripcion();
+            arregloProductos[i][4] = productos.get(i).getCantidad();
+        }
+        return arregloProductos;
+    }
+
+    //Validación para actualizar o eliminar
     public static int codigoActual = 0;
 
     public static boolean validarCodigoDoctor(String codigo) {
@@ -70,42 +119,99 @@ public class Proyect1 {
         return false;
     }
 
+    public static boolean validarCodigoPaciente(String codigo) {
+        for (int i = 0; i < pacientes.size(); i++) {
+            String codigoTem = pacientes.get(i).getCodigo();
+            if (codigoTem.equals(codigo)) {
+                codigoActual = i;
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public static boolean validarCodigoProducto(String codigo) {
+        for (int i = 0; i < productos.size(); i++) {
+            String codigoTem = productos.get(i).getCodigo();
+            if (codigoTem.equals(codigo)) {
+                codigoActual = i;
+                return true;
+            }
+        }
+        return false;
+    }
+
+    //Matriz retornada para la grafica nombres
     public static String[][] topEspecialidades = new String[5][2];
 
     public static void contarEspecialidad(ArrayList<Doctor> doctores) {
-        // Utilizamos un ArrayList para almacenar las especialidades y sus frecuencias
+        // ArrayList para almacenar las nombres y sus frecuencias
         ArrayList<String> especialidades = new ArrayList<>();
         ArrayList<Integer> frecuencia = new ArrayList<>();
 
         for (Doctor doctor : doctores) {
-            String especialidad = doctor.getEspecialidad(); // Reemplaza con el método adecuado
+            String especialidad = doctor.getEspecialidad();
             int indiceEncontrado = especialidades.indexOf(especialidad);
 
             if (indiceEncontrado != -1) {
-                // Ya tenemos esta especialidad, incrementamos la frecuencia
+                // Ya tenemos esta nombre, incrementamos la cantidad
                 frecuencia.set(indiceEncontrado, frecuencia.get(indiceEncontrado) + 1);
             } else {
-                // Añadimos una nueva especialidad y establecemos su frecuencia en 1
+                // Añadimos una nueva nombre y establecemos su cantidad en 1
                 especialidades.add(especialidad);
                 frecuencia.add(1);
             }
         }
 
         for (int i = 0; i < Math.min(5, especialidades.size()); i++) {
-            int maxFreqIndex = 0;
+            int indiceMaximaFrecuencia = 0;
             int maxFreq = frecuencia.get(0);
 
             for (int j = 1; j < especialidades.size(); j++) {
                 if (frecuencia.get(j) > maxFreq) {
                     maxFreq = frecuencia.get(j);
-                    maxFreqIndex = j;
+                    indiceMaximaFrecuencia = j;
                 }
             }
 
-            topEspecialidades[i][0] = especialidades.get(maxFreqIndex);
-            String maximaFrecuencia = ""+maxFreq;
+            topEspecialidades[i][0] = especialidades.get(indiceMaximaFrecuencia);
+            String maximaFrecuencia = "" + maxFreq;
             topEspecialidades[i][1] = maximaFrecuencia;
-            System.out.println("especialidad"+especialidades.get(maxFreqIndex)+ "frecuencia" + maxFreq );
+            frecuencia.set(indiceMaximaFrecuencia, -1);
+
+        }
+
+    }
+
+    //Matriz retornada para la grafica productos
+    public static String[][] topProductos = new String[3][2];
+
+    public static void contarProductos(ArrayList<Producto> productos) {
+        // ArrayList para almacenar las nombres y sus frecuencias
+        ArrayList<String> nombres = new ArrayList<>();
+        ArrayList<Integer> cantidad = new ArrayList<>();
+
+        for (Producto producto : productos) {
+
+            nombres.add(producto.getNombre());
+            cantidad.add(Integer.valueOf(producto.getCantidad()));
+        }
+
+        for (int i = 0; i < Math.min(3, nombres.size()); i++) {
+            int indiceMaximaFrecuencia = 0;
+            int maxFreq = cantidad.get(0);
+
+            for (int j = 1; j < nombres.size(); j++) {
+                if (cantidad.get(j) > maxFreq) {
+                    maxFreq = cantidad.get(j);
+                    indiceMaximaFrecuencia = j;
+                }
+            }
+
+            topProductos[i][0] = nombres.get(indiceMaximaFrecuencia);
+            String maximaFrecuencia = "" + maxFreq;
+            topProductos[i][1] = maximaFrecuencia;
+            cantidad.set(indiceMaximaFrecuencia, -1);
 
         }
 
