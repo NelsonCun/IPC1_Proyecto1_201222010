@@ -21,7 +21,8 @@ public class ValidarPacienteActualizar extends JFrame implements ActionListener{
     
     private void inicializarComponentes(){
         
-        mensaje1 = new JLabel("Ingrese el código del");
+        if (Proyect1.tipoUsuario == 1) {
+            mensaje1 = new JLabel("Ingrese el código del");
         mensaje1.setFont(new Font("Arial", Font.BOLD, 15));
         mensaje1.setBounds(75, 10, 200, 20);
         this.add(mensaje1);
@@ -30,6 +31,17 @@ public class ValidarPacienteActualizar extends JFrame implements ActionListener{
         mensaje2.setFont(new Font("Arial", Font.BOLD, 15));
         mensaje2.setBounds(81, 30, 200, 20);
         this.add(mensaje2);
+        } else if (Proyect1.tipoUsuario==3) {
+            mensaje1 = new JLabel("Ingrese su código");
+        mensaje1.setFont(new Font("Arial", Font.BOLD, 15));
+        mensaje1.setBounds(75, 10, 200, 20);
+        this.add(mensaje1);
+        
+        mensaje2 = new JLabel("");
+        mensaje2.setFont(new Font("Arial", Font.BOLD, 15));
+        mensaje2.setBounds(81, 30, 200, 20);
+        this.add(mensaje2);
+        }
         
         codigo = new JTextField();
         codigo.setBounds(50, 60, 200, 30);
@@ -71,8 +83,8 @@ public class ValidarPacienteActualizar extends JFrame implements ActionListener{
             }
                 
         } else if (ae.getSource()==cancelar) {
-            this.dispose();
-            ModAdmin modAdmin = new ModAdmin();
+                    ModAdmin modAdmin = new ModAdmin();
+                    this.dispose();
         }
         }
     

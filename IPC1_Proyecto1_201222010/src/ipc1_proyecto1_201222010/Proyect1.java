@@ -25,7 +25,7 @@ public class Proyect1 {
     static int codigoDoctores = 202410000;
     static int codigoPacientes = 202420000;
     static int codigoProductos = 202430000;
-    static int codigoUsuario = 0;
+    static int tipoUsuario = 0; //Predeterminado = 0, Admin = 1, Doctor = 2 , Paciente = 3
     static int indiceUsuario = 0;
 
     public static void main(String[] args) {
@@ -143,6 +143,9 @@ public class Proyect1 {
 
     //Matriz retornada para la grafica nombres
     public static String[][] topEspecialidades = new String[5][2];
+    
+    //Vector utilizado para que el paciente vea las especialidades disponibles
+    public static String[] vectorEspecialidades;
 
     public static void contarEspecialidad(ArrayList<Doctor> doctores) {
         // ArrayList para almacenar las nombres y sus frecuencias
@@ -161,6 +164,14 @@ public class Proyect1 {
                 especialidades.add(especialidad);
                 frecuencia.add(1);
             }
+        }
+        
+        //Llena el vector Especialidades
+        int n = especialidades.size();
+        vectorEspecialidades = new String[1+n];
+        vectorEspecialidades[0]= "Seleccionar";
+        for (int i = 0; i < especialidades.size(); i++) {
+            vectorEspecialidades[i+1] = especialidades.get(i);
         }
 
         for (int i = 0; i < Math.min(5, especialidades.size()); i++) {
@@ -181,6 +192,30 @@ public class Proyect1 {
 
         }
 
+    }
+    
+    //Vector con médicos que tienen la especialidad seleccionada
+    public static String[] doctoresEspSelect;
+    //public static String especialidadSeleccionada;
+    public static String especialidadSeleccionada;
+    
+    public static void doctoresPorEspecialidad(){
+        ArrayList<String> arrayDoctoresEspSelect = new ArrayList<>();
+        for (int i = 0; i < doctores.size(); i++) {
+            if (doctores.get(i).getEspecialidad().equals(especialidadSeleccionada)) {
+                arrayDoctoresEspSelect.add(doctores.get(i).getApellidos()+", " +doctores.get(i).getNombres());
+            }
+        }
+        
+        doctoresEspSelect = new String[arrayDoctoresEspSelect.size()+1];
+        doctoresEspSelect[0] = "Seleccionar";
+        for (int i = 0; i < arrayDoctoresEspSelect.size(); i++) {
+            doctoresEspSelect[i+1] = arrayDoctoresEspSelect.get(i);
+        }
+        
+        for (int i = 0; i < doctoresEspSelect.length; i++) {
+            System.out.println(doctoresEspSelect[i]);
+        }
     }
 
     //Matriz retornada para la grafica productos

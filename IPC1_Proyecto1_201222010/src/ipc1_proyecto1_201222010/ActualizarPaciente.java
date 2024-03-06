@@ -36,15 +36,25 @@ public class ActualizarPaciente extends JFrame implements ActionListener, KeyLis
         codigoLabel.setFont(new Font("Arial", Font.BOLD, 15));
         codigoLabel.setBounds(400, 30, 100, 30);
         this.add(codigoLabel);
-
-        JLabel code = new JLabel(Proyect1.pacientes.get(Proyect1.codigoActual).getCodigo());
+        
+        if (Proyect1.tipoUsuario==1) {
+            JLabel code = new JLabel(Proyect1.pacientes.get(Proyect1.codigoActual).getCodigo());
         code.setBounds(500, 30, 100, 30);
         code.setVerticalAlignment(SwingConstants.CENTER);
         code.setHorizontalAlignment(SwingConstants.CENTER);
         code.setFont(new Font("Arial", Font.BOLD, 15));
         code.setVisible(true);
         this.add(code);
-        
+        } else if (Proyect1.tipoUsuario==3) {
+            JLabel code = new JLabel(Proyect1.pacientes.get(Proyect1.indiceUsuario).getCodigo());
+        code.setBounds(500, 30, 100, 30);
+        code.setVerticalAlignment(SwingConstants.CENTER);
+        code.setHorizontalAlignment(SwingConstants.CENTER);
+        code.setFont(new Font("Arial", Font.BOLD, 15));
+        code.setVisible(true);
+        this.add(code);
+        }
+
         JLabel nombresLabel = new JLabel("Nombres");
         nombresLabel.setFont(new Font("Arial", Font.BOLD, 15));
         nombresLabel.setBounds(50, 70, 100, 30);
@@ -65,34 +75,56 @@ public class ActualizarPaciente extends JFrame implements ActionListener, KeyLis
         generoLabel.setBounds(50, 150, 100, 30);
         this.add(generoLabel);
         
-        JLabel gender = new JLabel(Proyect1.pacientes.get(Proyect1.codigoActual).getSexo());
-        gender.setBounds(150, 150, 100, 30);
+        if (Proyect1.tipoUsuario == 1) {
+            JLabel gender = new JLabel(Proyect1.pacientes.get(Proyect1.codigoActual).getSexo());
+            gender.setBounds(150, 150, 100, 30);
         gender.setVerticalAlignment(SwingConstants.CENTER);
         gender.setHorizontalAlignment(SwingConstants.CENTER);
         gender.setFont(new Font("Arial", Font.BOLD, 15));
         gender.setVisible(true);
         this.add(gender);
-
+        } else if (Proyect1.tipoUsuario == 3) {
+            JLabel gender = new JLabel(Proyect1.pacientes.get(Proyect1.indiceUsuario).getSexo());
+            gender.setBounds(150, 150, 100, 30);
+        gender.setVerticalAlignment(SwingConstants.CENTER);
+        gender.setHorizontalAlignment(SwingConstants.CENTER);
+        gender.setFont(new Font("Arial", Font.BOLD, 15));
+        gender.setVisible(true);
+        this.add(gender);
+        }
+        
         JLabel edadLabel = new JLabel("Edad");
         edadLabel.setFont(new Font("Arial", Font.BOLD, 15));
         edadLabel.setBounds(400, 110, 100, 30);
         this.add(edadLabel);
 
-        campoNombre = new JTextField(Proyect1.pacientes.get(Proyect1.codigoActual).getNombres());
+        if (Proyect1.tipoUsuario==1) {
+            campoNombre = new JTextField(Proyect1.pacientes.get(Proyect1.codigoActual).getNombres());
+            campoApellido = new JTextField(Proyect1.pacientes.get(Proyect1.codigoActual).getApellidos());
+            campoPassword = new JPasswordField(Proyect1.pacientes.get(Proyect1.codigoActual).getContraseña());
+            campoEdad = new JTextField(Proyect1.pacientes.get(Proyect1.codigoActual).getEdad());
+            
+        } else if (Proyect1.tipoUsuario==3) {
+            campoNombre = new JTextField(Proyect1.pacientes.get(Proyect1.indiceUsuario).getNombres());
+            campoApellido = new JTextField(Proyect1.pacientes.get(Proyect1.indiceUsuario).getApellidos());
+            campoPassword = new JPasswordField(Proyect1.pacientes.get(Proyect1.indiceUsuario).getContraseña());
+            campoEdad = new JTextField(Proyect1.pacientes.get(Proyect1.indiceUsuario).getEdad());
+        }
+
         campoNombre.addKeyListener(this);
         campoNombre.setBounds(150, 70, 200, 30);
         this.add(campoNombre);
 
-        campoApellido = new JTextField(Proyect1.pacientes.get(Proyect1.codigoActual).getApellidos());
+        
         campoApellido.addKeyListener(this);
         campoApellido.setBounds(500, 70, 200, 30);
         this.add(campoApellido);
 
-        campoPassword = new JPasswordField(Proyect1.pacientes.get(Proyect1.codigoActual).getContraseña());
+        
         campoPassword.setBounds(150, 110, 200, 30);
         this.add(campoPassword);
 
-        campoEdad = new JTextField(Proyect1.pacientes.get(Proyect1.codigoActual).getEdad());
+        
         campoEdad.addKeyListener(this);
         campoEdad.setBounds(500, 110, 200, 30);
         this.add(campoEdad);
@@ -129,23 +161,47 @@ public class ActualizarPaciente extends JFrame implements ActionListener, KeyLis
             String edad = campoEdad.getText();
             char[] passwordVector = campoPassword.getPassword();
             String password = new String(passwordVector);
-            String genero = Proyect1.pacientes.get(Proyect1.codigoActual).getSexo();
-            String codigoPaciente = Integer.toString(Proyect1.codigoPacientes);
+            String genero = new String();
+            String codigoPaciente = new String();
+                    if (Proyect1.tipoUsuario==1) {
+                genero = Proyect1.pacientes.get(Proyect1.codigoActual).getSexo();
+                codigoPaciente = Proyect1.pacientes.get(Proyect1.codigoActual).getCodigo();
+            }else if (Proyect1.tipoUsuario==3) {
+                genero = Proyect1.pacientes.get(Proyect1.indiceUsuario).getSexo();
+                codigoPaciente = Proyect1.pacientes.get(Proyect1.indiceUsuario).getCodigo();
+            }
+
             if (nombres.isEmpty()||apellidos.isEmpty()||edad.isEmpty()||password.isEmpty()||genero.isEmpty()) {
                 JOptionPane.showMessageDialog(this, "Debe llenar todos los campos", "ERROR", 0);
             }else{
                 Paciente newpaciente = new Paciente(codigoPaciente, nombres, apellidos, edad, password, genero);
-            Proyect1.pacientes.set(Proyect1.codigoActual,newpaciente);
+                
+                if (Proyect1.tipoUsuario==1) {
+                    Proyect1.pacientes.set(Proyect1.codigoActual,newpaciente);
+                }else if (Proyect1.tipoUsuario==3) {
+                    Proyect1.pacientes.set(Proyect1.indiceUsuario,newpaciente);
+                }
+            
             JOptionPane.showMessageDialog(null, "Paciente actualizado exitosamente",
                 "INFORMATION_MESSAGE", JOptionPane.INFORMATION_MESSAGE);
-                
+            
+                if (Proyect1.tipoUsuario==1) {
                     ModAdmin modAdmin = new ModAdmin();
                     this.dispose();
+                } else if (Proyect1.tipoUsuario == 3) {
+                    ModPaciente modPaciente = new ModPaciente();
+                    this.dispose();
+                }
                 
             }
         } else if (ae.getSource() == buttonCancelar) {
-            this.dispose();
-            ModAdmin modAdmin = new ModAdmin();
+            if (Proyect1.tipoUsuario==1) {
+                    ModAdmin modAdmin = new ModAdmin();
+                    this.dispose();
+                } else if (Proyect1.tipoUsuario == 3) {
+                    ModPaciente modPaciente = new ModPaciente();
+                    this.dispose();
+                }
         }
     }
 

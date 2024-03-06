@@ -153,8 +153,8 @@ public class CrearDoctor extends JFrame implements ActionListener, KeyListener {
             JOptionPane.showMessageDialog(null, "Doctor registrado exitosamente\nCódigo de doctor: "+Proyect1.codigoDoctores,
                 "INFORMATION_MESSAGE", JOptionPane.INFORMATION_MESSAGE);
             Proyect1.codigoDoctores += 1;
-            ModAdmin modAdmin = new ModAdmin();
             this.dispose();
+            ModAdmin modAdmin = new ModAdmin();
             }
         } else if (ae.getSource() == buttonCancelar) {
             this.dispose();

@@ -470,7 +470,7 @@ public class ModAdmin extends JFrame implements ActionListener, ChangeListener {
             this.dispose();
         } else if (ae.getSource() == btn4) {
             Login login = new Login();
-            Proyect1.codigoUsuario = 0;
+            Proyect1.tipoUsuario = 0;
             this.dispose();
         }
     }

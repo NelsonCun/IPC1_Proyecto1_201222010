@@ -128,7 +128,7 @@ public class Login extends JFrame implements ActionListener, FocusListener {
                     if (username.equals(Proyect1.administradores.get(i).getCodigo())) {
                         if (pwd.equals(Proyect1.administradores.get(i).getContraseña())) {
                             ModAdmin modAdmin = new ModAdmin();
-                            //Proyect1.codigoUsuario = Integer.parseInt(pwd);
+                            Proyect1.tipoUsuario = 1;
                             Proyect1.indiceUsuario = i;
                             this.dispose();
                             valido = true;
@@ -141,7 +141,7 @@ public class Login extends JFrame implements ActionListener, FocusListener {
                             if (pwd.equals(Proyect1.doctores.get(i).getContraseña())) {
                                 //ModDoctores modDoctores = new ModDoctores();
                                 System.out.println("Se abre módulo doctores");
-                                //Proyect1.codigoUsuario = Integer.parseInt(pwd);
+                                Proyect1.tipoUsuario = 2;
                                 Proyect1.indiceUsuario = i;
                                 this.dispose();
                                 valido = true;
@@ -154,7 +154,7 @@ public class Login extends JFrame implements ActionListener, FocusListener {
                                 if (pwd.equals(Proyect1.pacientes.get(i).getContraseña())) {
                                     ModPaciente modPaciente = new ModPaciente();
                                     System.out.println("Se abre módulo pacientes");
-                                    //Proyect1.codigoUsuario = Integer.parseInt(pwd);
+                                    Proyect1.tipoUsuario = 3;
                                     Proyect1.indiceUsuario = i;
                                     this.dispose();
                                     valido = true;

@@ -111,14 +111,28 @@ public class ModPaciente extends JFrame implements ActionListener, ChangeListene
         jp1.add(parrafo);
 
         //Listado especialidades
-        String[] vectorEspecialidades = {"Seleccionar", "otras especialidades"};
-        cbx1 = new JComboBox<>(vectorEspecialidades);
+        if (Proyect1.doctoresEspSelect!=null) {
+            cbx1 = new JComboBox<>(Proyect1.vectorEspecialidades);
+            cbx1.setSelectedItem(Proyect1.especialidadSeleccionada);
+        } else if (Proyect1.doctoresEspSelect==null) {
+          if (Proyect1.vectorEspecialidades!=null) {
+            cbx1 = new JComboBox<>(Proyect1.vectorEspecialidades);
+        } else if (Proyect1.vectorEspecialidades==null) {
+            String[] vectorSeleccionar = {"Seleccionar"};
+            cbx1 = new JComboBox<>(vectorSeleccionar);
+        }  
+        }
+        
         cbx1.setBounds(230, 250, 250, 40);
         jp1.add(cbx1);
 
         //Listado doctores
-        String[] vectorDoctores = {"Seleccionar", "otros doctores"};
-        cbx2 = new JComboBox<>(vectorDoctores);
+        if (Proyect1.doctoresEspSelect!=null) {
+            cbx2 = new JComboBox<>(Proyect1.doctoresEspSelect);
+        } else if (Proyect1.doctoresEspSelect==null) {
+            String[] vectorSeleccionar = {"Seleccionar"};
+            cbx2 = new JComboBox<>(vectorSeleccionar);
+        }
         cbx2.setBounds(230, 310, 250, 40);
         jp1.add(cbx2);
 
@@ -216,7 +230,11 @@ public class ModPaciente extends JFrame implements ActionListener, ChangeListene
     @Override
     public void actionPerformed(ActionEvent ae) {
         if (ae.getSource() == btn1) {
-
+            Proyect1.especialidadSeleccionada = (String) cbx1.getSelectedItem();
+            Proyect1.doctoresPorEspecialidad();
+            ModPaciente modpaciente = new ModPaciente();
+            this.dispose();
+            
         } else if (ae.getSource() == btn2) {
 
         } else if (ae.getSource() == btn3) {
@@ -242,19 +260,18 @@ public class ModPaciente extends JFrame implements ActionListener, ChangeListene
             }
         } else if (ae.getSource() == btn4) {
             Login login = new Login();
-            Proyect1.codigoUsuario = 0;
+            Proyect1.tipoUsuario = 0;
             this.dispose();
         } else if (ae.getSource() == btn5) {
-            ValidarPacienteActualizar validarPaciente = new ValidarPacienteActualizar();
+            ActualizarPaciente actualizarPaciente = new ActualizarPaciente();
             this.dispose();
         }
     }
+
+    @Override
+    public void stateChanged(ChangeEvent e) {
+
+    }
 }
 
-@Override
-public void stateChanged(ChangeEvent e) {
-        
-    }
-    
-    
 }

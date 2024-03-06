@@ -13,6 +13,7 @@ import java.awt.event.KeyListener;
  * @author nelson
  */
 public class CrearPaciente extends JFrame implements ActionListener, KeyListener {
+
     private JTextField campoNombre;
     private JTextField campoApellido;
     private JTextField campoEdad;
@@ -20,11 +21,11 @@ public class CrearPaciente extends JFrame implements ActionListener, KeyListener
     private JComboBox<String> comboBoxGenero;
     private JButton buttonRegistrar;
     private JButton buttonCancelar;
-    
+
     public CrearPaciente() {
         iniciarComponentes();
     }
-    
+
     private void iniciarComponentes() {
         //Título ventana
         JLabel titleLabel = new JLabel("Registro de Paciente");
@@ -104,7 +105,7 @@ public class CrearPaciente extends JFrame implements ActionListener, KeyListener
         this.setLocationRelativeTo(null);
 
     }
-    
+
     @Override
     public void actionPerformed(ActionEvent ae) {
         if (ae.getSource() == buttonRegistrar) {
@@ -115,24 +116,32 @@ public class CrearPaciente extends JFrame implements ActionListener, KeyListener
             String password = new String(passwordVector);
             String genero = (String) comboBoxGenero.getSelectedItem();
             String codigoPaciente = Integer.toString(Proyect1.codigoPacientes);
-            if (nombres.isEmpty()||apellidos.isEmpty()||edad.isEmpty()||password.isEmpty()||genero.isEmpty()) {
+            if (nombres.isEmpty() || apellidos.isEmpty() || edad.isEmpty() || password.isEmpty() || genero.isEmpty()) {
                 JOptionPane.showMessageDialog(this, "Debe llenar todos los campos", "ERROR", 0);
-            }else{
+            } else {
                 Paciente newpaciente = new Paciente(codigoPaciente, nombres, apellidos, edad, password, genero);
-            Proyect1.addPaciente(newpaciente);
-            JOptionPane.showMessageDialog(null, "Paciente registrado exitosamente\nCódigo de paciente: "+Proyect1.codigoPacientes,
-                "INFORMATION_MESSAGE", JOptionPane.INFORMATION_MESSAGE);
-            Proyect1.codigoPacientes += 1;
-                if (Proyect1.codigoUsuario==201222010) {
+                Proyect1.addPaciente(newpaciente);
+                JOptionPane.showMessageDialog(null, "Paciente registrado exitosamente\nCódigo de paciente: " + Proyect1.codigoPacientes,
+                        "INFORMATION_MESSAGE", JOptionPane.INFORMATION_MESSAGE);
+                if (Proyect1.tipoUsuario == 0) {
+                    this.dispose();
+                } else if (Proyect1.tipoUsuario == 1) {
                     ModAdmin modAdmin = new ModAdmin();
                     this.dispose();
-                } else if (proyect1.codigoUsuario==) {
-                    
+                } else if (Proyect1.tipoUsuario == 3) {
+                    ModPaciente modPaciente = new ModPaciente();
+                    this.dispose();
                 }
+                Proyect1.codigoPacientes += 1;
             }
         } else if (ae.getSource() == buttonCancelar) {
-            this.dispose();
-            ModAdmin modAdmin = new ModAdmin();
+            if (Proyect1.tipoUsuario == 0) {
+                this.dispose();
+            } else if (Proyect1.tipoUsuario == 1) {
+                ModAdmin modAdmin = new ModAdmin();
+                this.dispose();
+            }
+
         }
     }
 
@@ -145,25 +154,25 @@ public class CrearPaciente extends JFrame implements ActionListener, KeyListener
 
     @Override
     public void keyPressed(KeyEvent ke) {
-        
+
     }
 
     @Override
     public void keyReleased(KeyEvent ke) {
-        
+
     }
 
     private void discriminarCaracter(KeyEvent ke, char entrada) {
         JTextField datoIngresado = (JTextField) ke.getSource();
 
-        if (datoIngresado==campoEdad) {
-        if (!(entrada>=48 && entrada<=57)) {
-            ke.consume();
+        if (datoIngresado == campoEdad) {
+            if (!(entrada >= 48 && entrada <= 57)) {
+                ke.consume();
+            }
+        } else if (datoIngresado == campoNombre || datoIngresado == campoApellido) {
+            if (entrada >= 48 && entrada <= 57) {
+                ke.consume();
+            }
         }
-    } else if (datoIngresado == campoNombre || datoIngresado == campoApellido) {
-        if (entrada>=48 && entrada<=57) {
-            ke.consume();
-        }
-    }
     }
 }
