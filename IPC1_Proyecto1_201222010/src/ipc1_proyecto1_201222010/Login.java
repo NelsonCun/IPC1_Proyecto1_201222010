@@ -139,7 +139,7 @@ public class Login extends JFrame implements ActionListener, FocusListener {
                     for (int i = 0; i < Proyect1.doctores.size(); i++) {
                         if (username.equals(Proyect1.doctores.get(i).getCodigo())) {
                             if (pwd.equals(Proyect1.doctores.get(i).getContraseña())) {
-                                //ModDoctores modDoctores = new ModDoctores();
+                                ModDoctor modDoctor = new ModDoctor();
                                 System.out.println("Se abre módulo doctores");
                                 Proyect1.tipoUsuario = 2;
                                 Proyect1.indiceUsuario = i;

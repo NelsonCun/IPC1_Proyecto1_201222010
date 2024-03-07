@@ -22,6 +22,7 @@ import javax.swing.text.MaskFormatter;
 import javax.swing.border.Border;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
+import com.toedter.calendar.JDateChooser;
 
 /**
  *
@@ -31,10 +32,10 @@ public class ModPaciente extends JFrame implements ActionListener, ChangeListene
 
     JTabbedPane panel;
     JPanel jp1, jp2, jp3;
-    JButton btn1, btn2, btn3, btn4, btn5;
+    JButton btn1, btn2, btn3, btn4, btn5,btn6;
     JTextArea parrafo;
     JLabel lbl1, lbl2, lbl3, lbl4, lbl5, lbl6, lbl7, lbl8, lbl9, lbl10, lbl11;
-    JComboBox<String> cbx1, cbx2, cbx3;
+    JComboBox<String> cbx1, cbx2, cbx3,cbx4;
 
     public ModPaciente() {
         panel = new JTabbedPane(JTabbedPane.TOP);
@@ -91,17 +92,17 @@ public class ModPaciente extends JFrame implements ActionListener, ChangeListene
         lbl5.setBounds(75, 450, 150, 40);
         lbl5.setVisible(true);
         jp1.add(lbl5);
-
+        
         //Lable Hora
         lbl6 = new JLabel("Hora:");
         lbl6.setFont(new Font("Arial", Font.BOLD, 20));
         lbl6.setForeground(Color.BLACK);
-        lbl6.setBounds(350, 450, 150, 40);
+        lbl6.setBounds(75, 500, 150, 40);
         lbl6.setVisible(true);
         jp1.add(lbl6);
 
         //Entrada Motivo de la cita
-        parrafo = new JTextArea();
+        parrafo = new JTextArea("Escriba aquí el motivo de su cita");
         parrafo.setForeground(Color.BLACK);
         parrafo.setBackground(new Color(173, 173, 173));
         parrafo.setFont(new Font("Arial", Font.BOLD, 15));
@@ -122,7 +123,6 @@ public class ModPaciente extends JFrame implements ActionListener, ChangeListene
             cbx1 = new JComboBox<>(vectorSeleccionar);
         }  
         }
-        
         cbx1.setBounds(230, 250, 250, 40);
         jp1.add(cbx1);
 
@@ -135,12 +135,18 @@ public class ModPaciente extends JFrame implements ActionListener, ChangeListene
         }
         cbx2.setBounds(230, 310, 250, 40);
         jp1.add(cbx2);
+        
+        String[] vectorFechasDoctor = {"Seleccionar"};
+        cbx3 = new JComboBox<>(vectorFechasDoctor);
+        cbx3.setBounds(150,450,150,40);
+        jp1.add(cbx3);
+                
 
         //Listado horarios
         String[] vectorHorarios = {"Seleccionar", "otros horarios"};
-        cbx3 = new JComboBox<>(vectorHorarios);
-        cbx3.setBounds(425, 450, 150, 40);
-        jp1.add(cbx3);
+        cbx4 = new JComboBox<>(vectorHorarios);
+        cbx4.setBounds(150, 500, 150, 40);
+        jp1.add(cbx4);
 
         // Button Mostrar doctores
         btn1 = new JButton("Mostrar doctores");
@@ -150,13 +156,21 @@ public class ModPaciente extends JFrame implements ActionListener, ChangeListene
         btn1.addActionListener(this);
         jp1.add(btn1);
 
-        // Button Mostrar Horarios
-        btn2 = new JButton("Mostrar horarios");
+        // Button Mostrar Fechas
+        btn2 = new JButton("Mostrar fechas");
         btn2.setBounds(500, 310, 150, 40);
         btn2.setForeground(Color.WHITE);
         btn2.setBackground(new Color(136, 191, 243));
         btn2.addActionListener(this);
         jp1.add(btn2);
+        
+        // Button Mostrar Horarios
+        btn6 = new JButton("Mostrar horarios");
+        btn6.setBounds(350, 450, 150, 40);
+        btn6.setForeground(Color.WHITE);
+        btn6.setBackground(new Color(187,165,141));
+        btn6.addActionListener(this);
+        jp1.add(btn6);
 
         // Button Generar Cita
         btn3 = new JButton("Generar Cita");
@@ -176,6 +190,22 @@ public class ModPaciente extends JFrame implements ActionListener, ChangeListene
         btn4.setEnabled(true);
         btn4.addActionListener(this);
         this.add(btn4);
+        
+        // Título ver estado de cita
+        lbl7 = new JLabel("Historial de citas:");
+        lbl7.setFont(new Font("Arial", Font.BOLD, 30));
+        lbl7.setForeground(Color.BLACK);
+        lbl7.setBounds(50, 50, 300, 40);
+        lbl7.setVisible(true);
+        jp2.add(lbl7);
+        
+        // Titulo farmacia
+        lbl7 = new JLabel("Mira nuestro productos y visita nuestra farmacia para comprarlos");
+        lbl7.setFont(new Font("Arial", Font.BOLD, 25));
+        lbl7.setForeground(Color.BLACK);
+        lbl7.setBounds(50, 50, 1000, 40);
+        lbl7.setVisible(true);
+        jp3.add(lbl7);
 
         //Actualizar perfil
         btn5 = new JButton("Actualizar perfil");
@@ -236,6 +266,9 @@ public class ModPaciente extends JFrame implements ActionListener, ChangeListene
             this.dispose();
             
         } else if (ae.getSource() == btn2) {
+            Proyect1.doctorSeleccionado = (String) cbx2.getSelectedItem();
+            Proyect1.calendarioDoctor();
+            ModPaciente modpaciente = new ModPaciente();
 
         } else if (ae.getSource() == btn3) {
             String nombres = campoNombre.getText();
