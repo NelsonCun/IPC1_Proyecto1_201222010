@@ -176,7 +176,11 @@ public class ActualizarDoctor extends JFrame implements ActionListener, KeyListe
             }
         } else if (ae.getSource() == buttonCancelar) {
             this.dispose();
-            ModAdmin modAdmin = new ModAdmin();
+            if (Proyect1.tipoUsuario==1) {
+                ModAdmin modAdmin = new ModAdmin();
+            } else if (Proyect1.tipoUsuario==2) {
+                ModDoctor modDoctor = new ModDoctor();
+            }
         }
     }
 

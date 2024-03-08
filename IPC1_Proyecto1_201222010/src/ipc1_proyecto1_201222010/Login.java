@@ -127,9 +127,9 @@ public class Login extends JFrame implements ActionListener, FocusListener {
                 for (int i = 0; i < Proyect1.administradores.size(); i++) {
                     if (username.equals(Proyect1.administradores.get(i).getCodigo())) {
                         if (pwd.equals(Proyect1.administradores.get(i).getContraseña())) {
-                            ModAdmin modAdmin = new ModAdmin();
                             Proyect1.tipoUsuario = 1;
                             Proyect1.indiceUsuario = i;
+                            ModAdmin modAdmin = new ModAdmin();
                             this.dispose();
                             valido = true;
                         }
@@ -139,11 +139,11 @@ public class Login extends JFrame implements ActionListener, FocusListener {
                     for (int i = 0; i < Proyect1.doctores.size(); i++) {
                         if (username.equals(Proyect1.doctores.get(i).getCodigo())) {
                             if (pwd.equals(Proyect1.doctores.get(i).getContraseña())) {
-                                ModDoctor modDoctor = new ModDoctor();
                                 System.out.println("Se abre módulo doctores");
                                 Proyect1.tipoUsuario = 2;
                                 Proyect1.indiceUsuario = i;
                                 this.dispose();
+                                ModDoctor modDoctor = new ModDoctor();
                                 valido = true;
                             }
                         }
@@ -152,11 +152,11 @@ public class Login extends JFrame implements ActionListener, FocusListener {
                         for (int i = 0; i < Proyect1.pacientes.size(); i++) {
                             if (username.equals(Proyect1.pacientes.get(i).getCodigo())) {
                                 if (pwd.equals(Proyect1.pacientes.get(i).getContraseña())) {
-                                    ModPaciente modPaciente = new ModPaciente();
                                     System.out.println("Se abre módulo pacientes");
                                     Proyect1.tipoUsuario = 3;
                                     Proyect1.indiceUsuario = i;
                                     this.dispose();
+                                    ModPaciente modPaciente = new ModPaciente();
                                     valido = true;
                                 }
                             }
