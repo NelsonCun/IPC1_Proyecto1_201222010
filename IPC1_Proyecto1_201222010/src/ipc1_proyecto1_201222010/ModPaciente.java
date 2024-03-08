@@ -102,7 +102,11 @@ public class ModPaciente extends JFrame implements ActionListener, ChangeListene
         jp1.add(lbl6);
 
         //Entrada Motivo de la cita
-        parrafo = new JTextArea("Escriba aquí el motivo de su cita");
+        if (Proyect1.motivoCita=="0") {
+            parrafo = new JTextArea("Escriba aquí el motivo de su cita");
+        }else {
+            parrafo = new JTextArea(Proyect1.motivoCita);
+        }
         parrafo.setForeground(Color.BLACK);
         parrafo.setBackground(new Color(173, 173, 173));
         parrafo.setFont(new Font("Arial", Font.BOLD, 15));
@@ -129,6 +133,7 @@ public class ModPaciente extends JFrame implements ActionListener, ChangeListene
         //Listado doctores
         if (Proyect1.doctoresEspSelect!=null) {
             cbx2 = new JComboBox<>(Proyect1.doctoresEspSelect);
+            cbx2.setSelectedItem(Proyect1.doctorSeleccionado);
         } else if (Proyect1.doctoresEspSelect==null) {
             String[] vectorSeleccionar = {"Seleccionar"};
             cbx2 = new JComboBox<>(vectorSeleccionar);
@@ -136,8 +141,13 @@ public class ModPaciente extends JFrame implements ActionListener, ChangeListene
         cbx2.setBounds(230, 310, 250, 40);
         jp1.add(cbx2);
         
+        //Listado fechas
         String[] vectorFechasDoctor = {"Seleccionar"};
-        cbx3 = new JComboBox<>(vectorFechasDoctor);
+        if (Proyect1.seSeleccionoDoctor==0) {
+            cbx3 = new JComboBox<>(vectorFechasDoctor);
+        } else {
+            cbx3 = new JComboBox<>(Proyect1.listadoFechas);
+        }
         cbx3.setBounds(150,450,150,40);
         jp1.add(cbx3);
                 
@@ -162,6 +172,11 @@ public class ModPaciente extends JFrame implements ActionListener, ChangeListene
         btn2.setForeground(Color.WHITE);
         btn2.setBackground(new Color(136, 191, 243));
         btn2.addActionListener(this);
+        if (Proyect1.seSeleccionoEspecialidad==0) {
+            btn2.setEnabled(false);
+        } else if (Proyect1.seSeleccionoEspecialidad==1) {
+            btn2.setSelected(true);
+        }
         jp1.add(btn2);
         
         // Button Mostrar Horarios
@@ -170,6 +185,11 @@ public class ModPaciente extends JFrame implements ActionListener, ChangeListene
         btn6.setForeground(Color.WHITE);
         btn6.setBackground(new Color(187,165,141));
         btn6.addActionListener(this);
+        if (Proyect1.seSeleccionoDoctor==0) {
+            btn6.setEnabled(false);
+        } else if (Proyect1.seSeleccionoDoctor==1) {
+            btn6.setSelected(true);
+        }
         jp1.add(btn6);
 
         // Button Generar Cita
@@ -178,6 +198,11 @@ public class ModPaciente extends JFrame implements ActionListener, ChangeListene
         btn3.setForeground(Color.WHITE);
         btn3.setBackground(new Color(87, 168, 224));
         btn3.addActionListener(this);
+        if (Proyect1.seSeleccionoFecha==0) {
+            btn3.setEnabled(false);
+        } else if (Proyect1.seSeleccionoFecha==1) {
+            btn3.setSelected(true);
+        }
         jp1.add(btn3);
 
         //Boton salir
@@ -260,17 +285,43 @@ public class ModPaciente extends JFrame implements ActionListener, ChangeListene
     @Override
     public void actionPerformed(ActionEvent ae) {
         if (ae.getSource() == btn1) {
+            String motivoCita = parrafo.getText();
             Proyect1.especialidadSeleccionada = (String) cbx1.getSelectedItem();
+            if (motivoCita.isEmpty()||motivoCita.equals("Escriba aquí el motivo de su cita")||(String) cbx1.getSelectedItem()=="Seleccionar") {
+                JOptionPane.showMessageDialog(this, "Debe escribir el motivo de su cita\ny seleccionar una especialidad", "ERROR", 0);
+            } else {
             Proyect1.doctoresPorEspecialidad();
+            Proyect1.seSeleccionoEspecialidad=1;
+            Proyect1.seSeleccionoDoctor=0;
+            Proyect1.seSeleccionoFecha=0;
+            Proyect1.doctorSeleccionado = "Seleccionar";
+            Proyect1.indiceDoctorSeleccionado=-1;
+            Proyect1.motivoCita = motivoCita;
             ModPaciente modpaciente = new ModPaciente();
             this.dispose();
-            
+            }
         } else if (ae.getSource() == btn2) {
+            String motivoCita = parrafo.getText();
             Proyect1.doctorSeleccionado = (String) cbx2.getSelectedItem();
-            Proyect1.calendarioDoctor();
+            if (motivoCita.isEmpty()||(String) cbx2.getSelectedItem()=="Seleccionar") {
+                JOptionPane.showMessageDialog(this, "Debe escribir el motivo de su cita\ny seleccionar un doctor", "ERROR", 0);
+            } else {
+            Proyect1.seSeleccionoDoctor=1;
+            Proyect1.seSeleccionoFecha=0;
+            String[] nombres = Proyect1.doctorSeleccionado.split(", ");
+            String apellido = nombres[0];
+            String nombre = nombres[1];
+            Proyect1.buscarDoctorSeleccionado(nombre,apellido);
+            Proyect1.fechasDoctor();
             ModPaciente modpaciente = new ModPaciente();
+            this.dispose();
+            }
 
-        } else if (ae.getSource() == btn3) {
+        } else if (ae.getSource()==btn6) {
+            Proyect1.seSeleccionoFecha=1;
+            ModPaciente modpaciente = new ModPaciente();
+            this.dispose();
+        }  else if (ae.getSource() == btn3) {
             String nombres = campoNombre.getText();
             String apellidos = campoApellido.getText();
             String especialidad = campoEspecialidad.getText();

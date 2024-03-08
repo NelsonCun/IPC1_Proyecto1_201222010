@@ -96,32 +96,42 @@ public class ActualizarDoctor extends JFrame implements ActionListener, KeyListe
         obligatorio.setFont(new Font("Arial", Font.BOLD, 10));
         obligatorio.setBounds(400, 230, 100, 30);
         this.add(obligatorio);
-
-        campoNombre = new JTextField(Proyect1.doctores.get(Proyect1.codigoActual).getNombres());
+        
+        if (Proyect1.tipoUsuario==1) {
+            campoNombre = new JTextField(Proyect1.doctores.get(Proyect1.codigoActual).getNombres());
+            campoApellido = new JTextField(Proyect1.doctores.get(Proyect1.codigoActual).getApellidos());
+            campoPassword = new JPasswordField(Proyect1.doctores.get(Proyect1.codigoActual).getContraseña());
+            campoEspecialidad = new JTextField(Proyect1.doctores.get(Proyect1.codigoActual).getEspecialidad());
+            campoTelefono = new JTextField(Proyect1.doctores.get(Proyect1.codigoActual).getTelefono());
+            campoEdad = new JTextField(Proyect1.doctores.get(Proyect1.codigoActual).getEdad());
+        } else if (Proyect1.tipoUsuario==2) {
+            campoNombre = new JTextField(Proyect1.doctores.get(Proyect1.indiceUsuario).getNombres());
+            campoApellido = new JTextField(Proyect1.doctores.get(Proyect1.indiceUsuario).getApellidos());
+            campoPassword = new JPasswordField(Proyect1.doctores.get(Proyect1.indiceUsuario).getContraseña());
+            campoEspecialidad = new JTextField(Proyect1.doctores.get(Proyect1.indiceUsuario).getEspecialidad());
+            campoTelefono = new JTextField(Proyect1.doctores.get(Proyect1.indiceUsuario).getTelefono());
+            campoEdad = new JTextField(Proyect1.doctores.get(Proyect1.indiceUsuario).getEdad());
+        }
+        
         campoNombre.addKeyListener(this);
         campoNombre.setBounds(150, 110, 200, 30);
         this.add(campoNombre);
 
-        campoApellido = new JTextField(Proyect1.doctores.get(Proyect1.codigoActual).getApellidos());
         campoApellido.addKeyListener(this);
         campoApellido.setBounds(150, 150, 200, 30);
         this.add(campoApellido);
 
-        campoPassword = new JPasswordField(Proyect1.doctores.get(Proyect1.codigoActual).getContraseña());
         campoPassword.setBounds(150, 190, 200, 30);
         this.add(campoPassword);
 
-        campoEspecialidad = new JTextField(Proyect1.doctores.get(Proyect1.codigoActual).getEspecialidad());
         campoEspecialidad.addKeyListener(this);
         campoEspecialidad.setBounds(500, 110, 200, 30);
         this.add(campoEspecialidad);
 
-        campoTelefono = new JTextField(Proyect1.doctores.get(Proyect1.codigoActual).getTelefono());
         campoTelefono.addKeyListener(this);
         campoTelefono.setBounds(500, 150, 200, 30);
         this.add(campoTelefono);
 
-        campoEdad = new JTextField(Proyect1.doctores.get(Proyect1.codigoActual).getEdad());
         campoEdad.addKeyListener(this);
         campoEdad.setBounds(500, 190, 200, 30);
         this.add(campoEdad);
@@ -170,9 +180,13 @@ public class ActualizarDoctor extends JFrame implements ActionListener, KeyListe
             Proyect1.doctores.set(Proyect1.codigoActual,newdoctor);
             JOptionPane.showMessageDialog(null, "Doctor actualizado exitosamente",
                 "INFORMATION_MESSAGE", JOptionPane.INFORMATION_MESSAGE);
-            
-            ModAdmin modAdmin = new ModAdmin();
             this.dispose();
+                if (Proyect1.tipoUsuario==1) {
+                    ModAdmin modAdmin = new ModAdmin();
+                } else if (Proyect1.tipoUsuario==2) {
+                    ModDoctor modDoctor = new ModDoctor();
+                }
+            
             }
         } else if (ae.getSource() == buttonCancelar) {
             this.dispose();

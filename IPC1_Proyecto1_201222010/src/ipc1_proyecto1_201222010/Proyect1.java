@@ -27,6 +27,13 @@ public class Proyect1 {
     static int codigoProductos = 202440000;
     static int tipoUsuario = 0; //Predeterminado = 0, Admin = 1, Doctor = 2 , Paciente = 3
     static int indiceUsuario = 0; //Se determina al loguear
+    
+    static int seSeleccionoEspecialidad = 0;
+    static int seSeleccionoDoctor=0;
+    static int seSeleccionoFecha=0;
+    static String doctorSeleccionado = "0";
+    static String motivoCita = "0";
+    static int indiceDoctorSeleccionado=-1;
 
     public static void main(String[] args) {
         try {
@@ -319,6 +326,26 @@ public class Proyect1 {
         }
 
         return arregloFechasDisponibles;
+    }
+    
+    public static void buscarDoctorSeleccionado(String nombre,String apellido){
+        for (int i = 0; i < doctores.size(); i++) {
+            
+            if (doctores.get(i).getNombres().equals(nombre)&& doctores.get(i).getApellidos().equals(apellido)) {
+                indiceDoctorSeleccionado=i;
+            }
+        }
+    }
+    
+    public static String[] listadoFechas;
+    
+    public static void fechasDoctor(){
+        listadoFechas = new String[doctores.get(indiceDoctorSeleccionado).getFechasDisponibles().size()+1];
+        int numeroFechas = doctores.get(indiceDoctorSeleccionado).getFechasDisponibles().size();
+        listadoFechas[0]="Seleccionar";
+        for (int i = 0; i < numeroFechas; i++) {
+            listadoFechas[i+1]=doctores.get(indiceDoctorSeleccionado).getFechasDisponibles().get(i).getDia();
+        }
     }
 
 }
