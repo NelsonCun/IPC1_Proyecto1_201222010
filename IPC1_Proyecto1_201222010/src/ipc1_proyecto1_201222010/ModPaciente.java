@@ -23,6 +23,7 @@ import javax.swing.border.Border;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import com.toedter.calendar.JDateChooser;
+import java.awt.Dimension;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumnModel;
@@ -40,10 +41,10 @@ public class ModPaciente extends JFrame implements ActionListener, ChangeListene
     JLabel lbl1, lbl2, lbl3, lbl4, lbl5, lbl6, lbl7, lbl8, lbl9, lbl10, lbl11;
     JComboBox<String> cbx1, cbx2, cbx3, cbx4;
     JTable tablaCitas;
-    JScrollPane sp1;
-    
+    JScrollPane sp1, sp2;
 
     public ModPaciente() {
+
         Proyect1.contarEspecialidad(Proyect1.doctores);
         panel = new JTabbedPane(JTabbedPane.TOP);
 
@@ -55,7 +56,6 @@ public class ModPaciente extends JFrame implements ActionListener, ChangeListene
         jp3.setLayout(null);
         panel.addTab("Farmacia", jp3);
         panel.addChangeListener(this);
-        
 
         //Lable Motivo de la cita
         lbl1 = new JLabel("Motivo de la cita:");
@@ -216,9 +216,9 @@ public class ModPaciente extends JFrame implements ActionListener, ChangeListene
             btn3.setSelected(true);
         }
         jp1.add(btn3);
-        
+
         //Tabla Historial de Citas
-        String[] titulos_c = {"Número","Estado", "Fecha", "Hora"};
+        String[] titulos_c = {"Número", "Estado", "Fecha", "Hora"};
         Object[][] pruebaNelson = Proyect1.historialCitas();
         for (int i = 0; i < pruebaNelson.length; i++) {
             for (int j = 0; j < pruebaNelson[i].length; j++) {
@@ -240,6 +240,44 @@ public class ModPaciente extends JFrame implements ActionListener, ChangeListene
         this.sp1.setOpaque(true);
         sp1.setVisible(true);
         jp2.add(sp1);
+
+        //Paneles de productos de manera dinámica
+        JPanel panelProductos = new JPanel();
+        panelProductos.setLayout(null);
+        int x = 758, y = 32;
+        int alturaPanel = (((Proyect1.productos.size() / 4) + 1) * 182);
+
+        for (int i = 0; i < Proyect1.productos.size(); i++) {
+            Producto prodTemp = new Producto(Proyect1.productos.get(i).getCodigo(),
+                    Proyect1.productos.get(i).getNombre(),
+                    Proyect1.productos.get(i).getPrecio(),
+                    Proyect1.productos.get(i).getDescripcion(),
+                    Proyect1.productos.get(i).getCantidad());
+            if (x==758){
+                x=32;
+            } else if (x==32) {
+                x = 274 ; 
+            } else if (x==274) {
+                x=516;
+            } else if (x==516) {
+                x=758;
+            }  
+
+            JPanel jpTemp = prodTemp.getPanel();
+            jpTemp.setBounds(x, y, 210, 150);
+            jpTemp.setVisible(true);
+            panelProductos.add(jpTemp);
+            if (x==758) {
+                y += 182 ;
+            }
+        }
+        
+        panelProductos.setPreferredSize(new Dimension(1000, alturaPanel));
+        sp2 = new JScrollPane(panelProductos);
+        sp2.setBounds(25, 100, 1000, 500);
+        sp2.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        sp2.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+        jp3.add(sp2);
 
         //Boton salir
         btn4 = new JButton("Cerrar sesión");
@@ -385,20 +423,20 @@ public class ModPaciente extends JFrame implements ActionListener, ChangeListene
                 Proyect1.seSeleccionoEspecialidad = 0;
                 Proyect1.seSeleccionoDoctor = 0;
                 Proyect1.seSeleccionoFecha = 0;
-                Proyect1.indiceDoctorSeleccionado=-1;
-                Proyect1.indiceFechaSeleccionada=-1;
+                Proyect1.indiceDoctorSeleccionado = -1;
+                Proyect1.indiceFechaSeleccionada = -1;
 
                 ModPaciente modPaciente = new ModPaciente();
                 this.dispose();
             }
         } else if (ae.getSource() == btn4) {
             Proyect1.motivoCita = "0";
-                Proyect1.especialidadSeleccionada = "0";
-                Proyect1.doctorSeleccionado = "Seleccionar";
-                Proyect1.fechaSeleccionada = "0";
-                Proyect1.seSeleccionoEspecialidad = 0;
-                Proyect1.seSeleccionoDoctor = 0;
-                Proyect1.seSeleccionoFecha = 0;
+            Proyect1.especialidadSeleccionada = "0";
+            Proyect1.doctorSeleccionado = "Seleccionar";
+            Proyect1.fechaSeleccionada = "0";
+            Proyect1.seSeleccionoEspecialidad = 0;
+            Proyect1.seSeleccionoDoctor = 0;
+            Proyect1.seSeleccionoFecha = 0;
             Login login = new Login();
             Proyect1.tipoUsuario = 0;
             this.dispose();
@@ -412,7 +450,7 @@ public class ModPaciente extends JFrame implements ActionListener, ChangeListene
     public void stateChanged(ChangeEvent e) {
 
     }
-    
+
     public void resizeColumnWidth(JTable table) {
         final TableColumnModel columnModel = table.getColumnModel();
         for (int column = 0; column < table.getColumnCount(); column++) {

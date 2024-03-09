@@ -153,7 +153,7 @@ class ActualizarProducto extends JFrame implements ActionListener, KeyListener {
             if (!(entrada >= 48 && entrada <= 57)) {
                 ke.consume();
             }
-        } else if (datoIngresado == campoNombre || datoIngresado == campoPrecio) {
+        } else if (datoIngresado == campoPrecio) {
             if (entrada >= 48 && entrada <= 57) {
                 ke.consume();
             }
