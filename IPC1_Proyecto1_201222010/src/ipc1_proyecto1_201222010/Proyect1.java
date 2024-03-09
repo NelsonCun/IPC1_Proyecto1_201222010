@@ -22,9 +22,9 @@ public class Proyect1 {
     static ArrayList<Paciente> pacientes = new ArrayList<>();
     static ArrayList<Producto> productos = new ArrayList<>();
     static ArrayList<Administrador> administradores = new ArrayList<>();
-    static int codigoDoctores = 202420000;
-    static int codigoPacientes = 202430000;
-    static int codigoProductos = 202440000;
+    static int codigoDoctores = 202410001;
+    static int codigoPacientes = 202420001;
+    static int codigoProductos = 202430001;
     static int tipoUsuario = 0; //Predeterminado = 0, Admin = 1, Doctor = 2 , Paciente = 3
     static int indiceUsuario = 0; //Se determina al loguear
 
@@ -48,7 +48,7 @@ public class Proyect1 {
 
         Login login = new Login();
 
-        Administrador newAdmin = new Administrador("20", "admin", "20");
+        Administrador newAdmin = new Administrador("201222010", "admin", "proyecto1IPC1");
         addAdmin(newAdmin);
     }
 

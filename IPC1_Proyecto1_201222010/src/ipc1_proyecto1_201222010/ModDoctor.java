@@ -85,37 +85,6 @@ public class ModDoctor extends JFrame implements ActionListener, ChangeListener 
         lbl4.setVisible(true);
         jp1.add(lbl4);
         
-        //Paneles de citas solicitadas de manera dinámica
-        /*JPanel panelCitasSolicitadas = new JPanel();
-        panelCitasSolicitadas.setLayout(null);
-        int x = 50, y = 50;
-        int alturaPanel = (Proyect1.productos.size() * 130);
-
-        for (int i = 0; i < Proyect1.productos.size(); i++) {
-            Producto prodTemp = new Producto(Proyect1.productos.get(i).getCodigo(),
-                    Proyect1.productos.get(i).getNombre(),
-                    Proyect1.productos.get(i).getPrecio(),
-                    Proyect1.productos.get(i).getDescripcion(),
-                    Proyect1.productos.get(i).getCantidad());
-            
-
-            JPanel jpTemp = prodTemp.getPanel();
-            jpTemp.setBounds(x, y, 900, 150);
-            jpTemp.setVisible(true);
-            panelCitasSolicitadas.add(jpTemp);
-            
-                y += 182 ;
-            
-        }
-        
-        panelCitasSolicitadas.setPreferredSize(new Dimension(1000, alturaPanel));
-        sp2 = new JScrollPane(panelCitasSolicitadas);
-        sp2.setBounds(25, 100, 1000, 500);
-        sp2.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-        sp2.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-        jp1.add(sp2);*/
-        
-        
         ///////////////////////////// Pestaña Asignar horarios///////////////////////////
 
         // Título Horario
