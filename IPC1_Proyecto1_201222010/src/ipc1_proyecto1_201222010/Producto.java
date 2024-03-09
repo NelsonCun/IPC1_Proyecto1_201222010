@@ -26,7 +26,6 @@ class Producto {
     private String cantidad;
     JPanel jp1;
     JLabel lbl1,lbl2,lbl3;
-    JButton btn1;
 
     public Producto(String codigo, String nombre, String precio, String descripcion, String cantidad) {
         this.codigo = codigo;

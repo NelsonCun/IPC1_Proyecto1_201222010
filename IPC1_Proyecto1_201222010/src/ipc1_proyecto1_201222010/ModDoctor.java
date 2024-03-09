@@ -5,6 +5,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.HeadlessException;
 import java.awt.Image;
@@ -50,6 +51,8 @@ public class ModDoctor extends JFrame implements ActionListener, ChangeListener 
         jp2 = new JPanel(null);
         panel.addTab("Asignar horario", jp2);
 
+        /////////////////////////////////////// pestaña citas /////////////////////////
+        
         //Lable NombrePaciente
         lbl1 = new JLabel("Nombre de paciente");
         lbl1.setFont(new Font("Arial", Font.BOLD, 14));
@@ -74,13 +77,46 @@ public class ModDoctor extends JFrame implements ActionListener, ChangeListener 
         lbl3.setVisible(true);
         jp1.add(lbl3);
 
-        //Lable FechaCita
+        //Lable Acciones
         lbl4 = new JLabel("Acciones");
         lbl4.setFont(new Font("Arial", Font.BOLD, 14));
         lbl4.setForeground(Color.BLACK);
         lbl4.setBounds(750, 25, 150, 40);
         lbl4.setVisible(true);
         jp1.add(lbl4);
+        
+        //Paneles de citas solicitadas de manera dinámica
+        /*JPanel panelCitasSolicitadas = new JPanel();
+        panelCitasSolicitadas.setLayout(null);
+        int x = 50, y = 50;
+        int alturaPanel = (Proyect1.productos.size() * 130);
+
+        for (int i = 0; i < Proyect1.productos.size(); i++) {
+            Producto prodTemp = new Producto(Proyect1.productos.get(i).getCodigo(),
+                    Proyect1.productos.get(i).getNombre(),
+                    Proyect1.productos.get(i).getPrecio(),
+                    Proyect1.productos.get(i).getDescripcion(),
+                    Proyect1.productos.get(i).getCantidad());
+            
+
+            JPanel jpTemp = prodTemp.getPanel();
+            jpTemp.setBounds(x, y, 900, 150);
+            jpTemp.setVisible(true);
+            panelCitasSolicitadas.add(jpTemp);
+            
+                y += 182 ;
+            
+        }
+        
+        panelCitasSolicitadas.setPreferredSize(new Dimension(1000, alturaPanel));
+        sp2 = new JScrollPane(panelCitasSolicitadas);
+        sp2.setBounds(25, 100, 1000, 500);
+        sp2.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        sp2.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+        jp1.add(sp2);*/
+        
+        
+        ///////////////////////////// Pestaña Asignar horarios///////////////////////////
 
         // Título Horario
         lbl5 = new JLabel("Horario");
@@ -193,6 +229,7 @@ public class ModDoctor extends JFrame implements ActionListener, ChangeListener 
         btn1.setBackground(new Color(191, 168, 214));
         btn1.addActionListener(this);
         jp2.add(btn1);
+        
 
         //Actualizar perfil
         btn2 = new JButton("Actualizar perfil");
