@@ -27,13 +27,17 @@ public class Proyect1 {
     static int codigoProductos = 202440000;
     static int tipoUsuario = 0; //Predeterminado = 0, Admin = 1, Doctor = 2 , Paciente = 3
     static int indiceUsuario = 0; //Se determina al loguear
-    
+
     static int seSeleccionoEspecialidad = 0;
-    static int seSeleccionoDoctor=0;
-    static int seSeleccionoFecha=0;
+    static int seSeleccionoDoctor = 0;
+    static int seSeleccionoFecha = 0;
     static String doctorSeleccionado = "0";
+    static String fechaSeleccionada = "0";
     static String motivoCita = "0";
-    static int indiceDoctorSeleccionado=-1;
+    static String horarioSeleccionado = "0";
+    static int indiceDoctorSeleccionado = -1;
+    static int indiceFechaSeleccionada = -1;
+    static int indiceHorarioSeleccionado = -1;
 
     public static void main(String[] args) {
         try {
@@ -277,6 +281,7 @@ public class Proyect1 {
 
     }
 
+    //Añadir un nuevo horario disponible por un doctor
     public static boolean addHorario(String horaHabil, Fecha fecha) {
         boolean existenciaHorario = false;
         int indiceFecha = 0;
@@ -285,7 +290,7 @@ public class Proyect1 {
                 indiceFecha = i;
             }
         }
-        
+
         System.out.println("indice de fecha es : " + indiceFecha);
 
         for (int i = 0; i < doctores.get(indiceUsuario).getFechasDisponibles().get(indiceFecha).getHorario().size(); i++) {
@@ -313,10 +318,10 @@ public class Proyect1 {
         int indiceArreglo = 0;
 
         for (int i = 0; i < doctores.get(indiceUsuario).getFechasDisponibles().size(); i++) {
-            for (int j = 0;j < doctores.get(indiceUsuario).getFechasDisponibles().get(i).getHorario().size();j++) {
+            for (int j = 0; j < doctores.get(indiceUsuario).getFechasDisponibles().get(i).getHorario().size(); j++) {
                 int numeracion = indiceArreglo + 1;
-                String  stringNumeración = ""+numeracion;
-                
+                String stringNumeración = "" + numeracion;
+
                 arregloFechasDisponibles[indiceArreglo][0] = stringNumeración;
                 arregloFechasDisponibles[indiceArreglo][1] = doctores.get(indiceUsuario).getFechasDisponibles().get(i).getDia();
                 arregloFechasDisponibles[indiceArreglo][2] = doctores.get(indiceUsuario).getFechasDisponibles().get(i).getHorario().get(j);
@@ -327,25 +332,81 @@ public class Proyect1 {
 
         return arregloFechasDisponibles;
     }
-    
-    public static void buscarDoctorSeleccionado(String nombre,String apellido){
+
+    public static void buscarDoctorSeleccionado(String nombre, String apellido) {
         for (int i = 0; i < doctores.size(); i++) {
-            
-            if (doctores.get(i).getNombres().equals(nombre)&& doctores.get(i).getApellidos().equals(apellido)) {
-                indiceDoctorSeleccionado=i;
+
+            if (doctores.get(i).getNombres().equals(nombre) && doctores.get(i).getApellidos().equals(apellido)) {
+                indiceDoctorSeleccionado = i;
             }
         }
     }
-    
+
     public static String[] listadoFechas;
-    
-    public static void fechasDoctor(){
-        listadoFechas = new String[doctores.get(indiceDoctorSeleccionado).getFechasDisponibles().size()+1];
+
+    public static void fechasDoctor() {
+        listadoFechas = new String[doctores.get(indiceDoctorSeleccionado).getFechasDisponibles().size() + 1];
         int numeroFechas = doctores.get(indiceDoctorSeleccionado).getFechasDisponibles().size();
-        listadoFechas[0]="Seleccionar";
+        listadoFechas[0] = "Seleccionar";
         for (int i = 0; i < numeroFechas; i++) {
-            listadoFechas[i+1]=doctores.get(indiceDoctorSeleccionado).getFechasDisponibles().get(i).getDia();
+            listadoFechas[i + 1] = doctores.get(indiceDoctorSeleccionado).getFechasDisponibles().get(i).getDia();
         }
+    }
+
+    public static void buscarFechaSeleccionada(String fecha) {
+        for (int i = 0; i < doctores.get(indiceDoctorSeleccionado).getFechasDisponibles().size(); i++) {
+
+            if (doctores.get(indiceDoctorSeleccionado).getFechasDisponibles().get(i).getDia().equals(fecha)) {
+                indiceFechaSeleccionada = i;
+            }
+        }
+    }
+
+    public static String[] listadoHorarios;
+
+    public static void horariosDoctor() {
+        listadoHorarios = new String[doctores.get(indiceDoctorSeleccionado).getFechasDisponibles().get(indiceFechaSeleccionada).getHorario().size() + 1];
+        int numeroHorarios = doctores.get(indiceDoctorSeleccionado).getFechasDisponibles().get(indiceFechaSeleccionada).getHorario().size();
+        listadoHorarios[0] = "Seleccionar";
+        for (int i = 0; i < numeroHorarios; i++) {
+            listadoHorarios[i + 1] = doctores.get(indiceDoctorSeleccionado).getFechasDisponibles().get(indiceFechaSeleccionada).getHorario().get(i);
+        }
+    }
+
+    //Ubica el índice del horario seleccionado por el paciente en los horarios de un doctor
+    public static void buscarHorarioSeleccionado(String horario) {
+        for (int i = 0; i < doctores.get(indiceDoctorSeleccionado).getFechasDisponibles().get(indiceFechaSeleccionada).getHorario().size(); i++) {
+
+            if (doctores.get(indiceDoctorSeleccionado).getFechasDisponibles().get(indiceFechaSeleccionada).getHorario().get(i).equals(horario)) {
+                indiceHorarioSeleccionado = i;
+            }
+        }
+    }
+
+    //Genera una tabla para mostrar al paciente su historial de citas
+    public static Object[][] historialCitas() {
+        int filas = pacientes.get(indiceUsuario).getCitas().size();
+
+        Object[][] arregloHistorialCitas = new String[filas][4];
+        int indiceArreglo = 0;
+
+        for (int i = 0; i < pacientes.get(indiceUsuario).getCitas().size(); i++) {
+            int numeracion = indiceArreglo + 1;
+            String stringNumeración = "" + numeracion;
+
+            arregloHistorialCitas[indiceArreglo][0] = stringNumeración;
+            arregloHistorialCitas[indiceArreglo][1] = pacientes.get(indiceUsuario).getCitas().get(i).getEstado();
+            arregloHistorialCitas[indiceArreglo][2] = pacientes.get(indiceUsuario).getCitas().get(i).getFecha();
+            arregloHistorialCitas[indiceArreglo][3] = pacientes.get(indiceUsuario).getCitas().get(i).getHorario();
+            indiceArreglo++;
+
+        }
+        return arregloHistorialCitas;
+    }
+
+    //Añadir nueva cita al historial de citas de un paciente
+    public static void addCita(Cita cita) {
+        pacientes.get(indiceUsuario).getCitas().add(cita);
     }
 
 }

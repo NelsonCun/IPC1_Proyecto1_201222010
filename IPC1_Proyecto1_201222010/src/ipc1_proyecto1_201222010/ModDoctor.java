@@ -40,6 +40,8 @@ public class ModDoctor extends JFrame implements ActionListener, ChangeListener 
     JDateChooser entradaFecha;
 
     public ModDoctor() {
+        
+        Proyect1.contarEspecialidad(Proyect1.doctores);
 
         panel = new JTabbedPane(JTabbedPane.TOP);
 

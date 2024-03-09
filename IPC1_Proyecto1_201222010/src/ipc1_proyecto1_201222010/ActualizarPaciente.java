@@ -174,12 +174,18 @@ public class ActualizarPaciente extends JFrame implements ActionListener, KeyLis
             if (nombres.isEmpty()||apellidos.isEmpty()||edad.isEmpty()||password.isEmpty()||genero.isEmpty()) {
                 JOptionPane.showMessageDialog(this, "Debe llenar todos los campos", "ERROR", 0);
             }else{
-                Paciente newpaciente = new Paciente(codigoPaciente, nombres, apellidos, edad, password, genero);
-                
                 if (Proyect1.tipoUsuario==1) {
-                    Proyect1.pacientes.set(Proyect1.codigoActual,newpaciente);
+                    Proyect1.pacientes.get(Proyect1.codigoActual).setNombres(nombres);
+                    Proyect1.pacientes.get(Proyect1.codigoActual).setApellidos(apellidos);
+                    Proyect1.pacientes.get(Proyect1.codigoActual).setEdad(edad);
+                    Proyect1.pacientes.get(Proyect1.codigoActual).setContraseña(password);
+                    this.dispose();
                 }else if (Proyect1.tipoUsuario==3) {
-                    Proyect1.pacientes.set(Proyect1.indiceUsuario,newpaciente);
+                    Proyect1.pacientes.get(Proyect1.indiceUsuario).setNombres(nombres);
+                    Proyect1.pacientes.get(Proyect1.indiceUsuario).setApellidos(apellidos);
+                    Proyect1.pacientes.get(Proyect1.indiceUsuario).setEdad(edad);
+                    Proyect1.pacientes.get(Proyect1.indiceUsuario).setContraseña(password);
+                    this.dispose();
                 }
             
             JOptionPane.showMessageDialog(null, "Paciente actualizado exitosamente",

@@ -76,9 +76,8 @@ public class Persona {
     /**
      * @param edad the edad to set
      */
-    public void setEdad(int edad) {
-        String stringEdad = edad+"";
-        this.edad = stringEdad;
+    public void setEdad(String edad) {
+        this.edad = edad;
     }
 
     /**

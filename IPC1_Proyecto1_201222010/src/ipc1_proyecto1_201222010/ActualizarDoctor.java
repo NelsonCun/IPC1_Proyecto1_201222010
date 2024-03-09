@@ -1,6 +1,5 @@
 package ipc1_proyecto1_201222010;
 
-
 import javax.swing.*;
 import java.awt.*;
 
@@ -13,9 +12,8 @@ import java.awt.event.KeyListener;
  *
  * @author nelson
  */
+public class ActualizarDoctor extends JFrame implements ActionListener, KeyListener {
 
-public class ActualizarDoctor extends JFrame implements ActionListener, KeyListener{
-    
     private JTextField campoNombre;
     private JTextField campoApellido;
     private JTextField campoEspecialidad;
@@ -40,7 +38,7 @@ public class ActualizarDoctor extends JFrame implements ActionListener, KeyListe
         codigoLabel.setFont(new Font("Arial", Font.BOLD, 15));
         codigoLabel.setBounds(50, 70, 100, 30);
         this.add(codigoLabel);
-        
+
         JLabel code = new JLabel(Proyect1.doctores.get(Proyect1.codigoActual).getCodigo());
         code.setBounds(150, 70, 100, 30);
         code.setVerticalAlignment(SwingConstants.CENTER);
@@ -48,7 +46,7 @@ public class ActualizarDoctor extends JFrame implements ActionListener, KeyListe
         code.setFont(new Font("Arial", Font.BOLD, 15));
         code.setVisible(true);
         this.add(code);
-        
+
         JLabel nombresLabel = new JLabel("Nombres\u207A");
         nombresLabel.setFont(new Font("Arial", Font.BOLD, 15));
         nombresLabel.setBounds(50, 110, 100, 30);
@@ -68,7 +66,7 @@ public class ActualizarDoctor extends JFrame implements ActionListener, KeyListe
         generoLabel.setFont(new Font("Arial", Font.BOLD, 15));
         generoLabel.setBounds(50, 230, 100, 30);
         this.add(generoLabel);
-        
+
         JLabel gender = new JLabel(Proyect1.doctores.get(Proyect1.codigoActual).getSexo());
         gender.setBounds(150, 230, 100, 30);
         gender.setVerticalAlignment(SwingConstants.CENTER);
@@ -91,20 +89,20 @@ public class ActualizarDoctor extends JFrame implements ActionListener, KeyListe
         edadLabel.setFont(new Font("Arial", Font.BOLD, 15));
         edadLabel.setBounds(400, 190, 100, 30);
         this.add(edadLabel);
-        
+
         JLabel obligatorio = new JLabel("\u207A Campo obligatorio");
         obligatorio.setFont(new Font("Arial", Font.BOLD, 10));
         obligatorio.setBounds(400, 230, 100, 30);
         this.add(obligatorio);
-        
-        if (Proyect1.tipoUsuario==1) {
+
+        if (Proyect1.tipoUsuario == 1) {
             campoNombre = new JTextField(Proyect1.doctores.get(Proyect1.codigoActual).getNombres());
             campoApellido = new JTextField(Proyect1.doctores.get(Proyect1.codigoActual).getApellidos());
             campoPassword = new JPasswordField(Proyect1.doctores.get(Proyect1.codigoActual).getContraseña());
             campoEspecialidad = new JTextField(Proyect1.doctores.get(Proyect1.codigoActual).getEspecialidad());
             campoTelefono = new JTextField(Proyect1.doctores.get(Proyect1.codigoActual).getTelefono());
             campoEdad = new JTextField(Proyect1.doctores.get(Proyect1.codigoActual).getEdad());
-        } else if (Proyect1.tipoUsuario==2) {
+        } else if (Proyect1.tipoUsuario == 2) {
             campoNombre = new JTextField(Proyect1.doctores.get(Proyect1.indiceUsuario).getNombres());
             campoApellido = new JTextField(Proyect1.doctores.get(Proyect1.indiceUsuario).getApellidos());
             campoPassword = new JPasswordField(Proyect1.doctores.get(Proyect1.indiceUsuario).getContraseña());
@@ -112,7 +110,7 @@ public class ActualizarDoctor extends JFrame implements ActionListener, KeyListe
             campoTelefono = new JTextField(Proyect1.doctores.get(Proyect1.indiceUsuario).getTelefono());
             campoEdad = new JTextField(Proyect1.doctores.get(Proyect1.indiceUsuario).getEdad());
         }
-        
+
         campoNombre.addKeyListener(this);
         campoNombre.setBounds(150, 110, 200, 30);
         this.add(campoNombre);
@@ -172,27 +170,38 @@ public class ActualizarDoctor extends JFrame implements ActionListener, KeyListe
             String password = new String(passwordVector);
             String genero = Proyect1.doctores.get(Proyect1.codigoActual).getSexo();
             String codigoDoctor = Proyect1.doctores.get(Proyect1.codigoActual).getCodigo();
-            if (nombres.isEmpty()||apellidos.isEmpty()||especialidad.isEmpty()||edad.isEmpty()||password.isEmpty()||genero.isEmpty()) {
+            if (nombres.isEmpty() || apellidos.isEmpty() || especialidad.isEmpty() || edad.isEmpty() || password.isEmpty() || genero.isEmpty()) {
                 JOptionPane.showMessageDialog(this, "Debe llenar todos los campos obligatorios", "ERROR", 0);
-            }else{
-
-            Doctor newdoctor = new Doctor(codigoDoctor, nombres, apellidos, especialidad, telefono, edad, password, genero);
-            Proyect1.doctores.set(Proyect1.codigoActual,newdoctor);
-            JOptionPane.showMessageDialog(null, "Doctor actualizado exitosamente",
-                "INFORMATION_MESSAGE", JOptionPane.INFORMATION_MESSAGE);
-            this.dispose();
-                if (Proyect1.tipoUsuario==1) {
+            } else {
+                if (Proyect1.tipoUsuario == 1) {
+                    Proyect1.doctores.get(Proyect1.codigoActual).setNombres(nombres);
+                    Proyect1.doctores.get(Proyect1.codigoActual).setApellidos(apellidos);
+                    Proyect1.doctores.get(Proyect1.codigoActual).setEspecialidad(especialidad);
+                    Proyect1.doctores.get(Proyect1.codigoActual).setTelefono(telefono);
+                    Proyect1.doctores.get(Proyect1.codigoActual).setEdad(edad);
+                    Proyect1.doctores.get(Proyect1.codigoActual).setContraseña(password);
+                    JOptionPane.showMessageDialog(null, "Doctor actualizado exitosamente",
+                            "INFORMATION_MESSAGE", JOptionPane.INFORMATION_MESSAGE);
+                    this.dispose();
                     ModAdmin modAdmin = new ModAdmin();
-                } else if (Proyect1.tipoUsuario==2) {
+                } else if (Proyect1.tipoUsuario == 2) {
+                    Proyect1.doctores.get(Proyect1.indiceUsuario).setNombres(nombres);
+                    Proyect1.doctores.get(Proyect1.indiceUsuario).setApellidos(apellidos);
+                    Proyect1.doctores.get(Proyect1.indiceUsuario).setEspecialidad(especialidad);
+                    Proyect1.doctores.get(Proyect1.indiceUsuario).setTelefono(telefono);
+                    Proyect1.doctores.get(Proyect1.indiceUsuario).setEdad(edad);
+                    Proyect1.doctores.get(Proyect1.indiceUsuario).setContraseña(password);
+                    JOptionPane.showMessageDialog(null, "Doctor actualizado exitosamente",
+                            "INFORMATION_MESSAGE", JOptionPane.INFORMATION_MESSAGE);
+                    this.dispose();
                     ModDoctor modDoctor = new ModDoctor();
                 }
-            
             }
         } else if (ae.getSource() == buttonCancelar) {
             this.dispose();
-            if (Proyect1.tipoUsuario==1) {
+            if (Proyect1.tipoUsuario == 1) {
                 ModAdmin modAdmin = new ModAdmin();
-            } else if (Proyect1.tipoUsuario==2) {
+            } else if (Proyect1.tipoUsuario == 2) {
                 ModDoctor modDoctor = new ModDoctor();
             }
         }
@@ -206,25 +215,25 @@ public class ActualizarDoctor extends JFrame implements ActionListener, KeyListe
 
     @Override
     public void keyPressed(KeyEvent ke) {
-        
+
     }
 
     @Override
     public void keyReleased(KeyEvent ke) {
-        
+
     }
 
     private void discriminarCaracter(KeyEvent ke, char entrada) {
         JTextField datoIngresado = (JTextField) ke.getSource();
 
-        if (datoIngresado == campoTelefono || datoIngresado==campoEdad) {
-        if (!(entrada>=48 && entrada<=57)) {
-            ke.consume();
+        if (datoIngresado == campoTelefono || datoIngresado == campoEdad) {
+            if (!(entrada >= 48 && entrada <= 57)) {
+                ke.consume();
+            }
+        } else if (datoIngresado == campoNombre || datoIngresado == campoApellido || datoIngresado == campoEspecialidad) {
+            if (entrada >= 48 && entrada <= 57) {
+                ke.consume();
+            }
         }
-    } else if (datoIngresado == campoNombre || datoIngresado == campoApellido || datoIngresado == campoEspecialidad) {
-        if (entrada>=48 && entrada<=57) {
-            ke.consume();
-        }
-    }
     }
 }
