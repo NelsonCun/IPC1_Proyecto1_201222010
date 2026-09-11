@@ -48,7 +48,8 @@ public class Proyect1 {
 
         Login login = new Login();
 
-        Administrador newAdmin = new Administrador("201222010", "admin", "proyecto1IPC1");
+        String adminPassword = System.getenv().getOrDefault("IPC1_ADMIN_PASSWORD", "admin");
+        Administrador newAdmin = new Administrador("admin", "Administrador", adminPassword);
         addAdmin(newAdmin);
     }
 

@@ -118,9 +118,6 @@ public class Login extends JFrame implements ActionListener, FocusListener {
             char[] password = passwordField.getPassword();
             String pwd = new String(password);
 
-            System.out.println("Usuario " + username);
-            System.out.println("Password " + pwd);
-
             boolean valido = false;
 
             if (!valido) {
