@@ -1,2 +1,18 @@
-/IPC1_Proyecto1_201222010/nbproject/private/
-/IPC1_Proyecto1_201222010/build/
+# OS / editor artifacts
+.DS_Store
+**/.DS_Store
+.idea/
+.vscode/
+
+# NetBeans user-specific metadata
+**/nbproject/private/
+
+# Java build outputs
+**/build/
+**/dist/
+target/
+*.class
+
+# Logs / temporary files
+*.log
+*.tmp
